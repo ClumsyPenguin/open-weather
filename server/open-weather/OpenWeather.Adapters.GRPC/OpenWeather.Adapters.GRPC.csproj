@@ -9,13 +9,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Protobuf Include="Protos\greet.proto" GrpcServices="Server"/>
+        <PackageReference Include="Grpc.AspNetCore" Version="2.66.0" />
     </ItemGroup>
-
     <ItemGroup>
-        <PackageReference Include="Grpc.AspNetCore" Version="2.57.0"/>
+        <Protobuf Include="Protos\temperature.proto" GrpcServices="Server" />
     </ItemGroup>
-
+    
     <ItemGroup>
       <Content Include="..\.dockerignore">
         <Link>.dockerignore</Link>

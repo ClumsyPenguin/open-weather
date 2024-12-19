@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option csharp_namespace = "OpenWeather.ServiceEndpoints";
+
+package temperature;
+
+service TemperatureService {
+  rpc GetTemperature (GetTemperatureQuery) returns (TemperatureResponse);
+}
+
+message GetTemperatureQuery {
+  double longitude = 1;
+  double latitude = 2;
+}
+
+message TemperatureResponse {
+  double temperature = 1;
+}
