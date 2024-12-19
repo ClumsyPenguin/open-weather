@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "OpenWeather.Adapters.Azure.Compute": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7062",
+      "launchBrowser": false
+    }
+  }
+}

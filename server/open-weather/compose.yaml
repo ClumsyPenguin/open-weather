@@ -1,0 +1,6 @@
+﻿services:
+  openweather.adapter.grpc:
+    image: openweather.adapter.grpc
+    build:
+      context: .
+      dockerfile: OpenWeather.Adapter.GRPC/Dockerfile
