@@ -10,6 +10,7 @@
 
     <ItemGroup>
         <PackageReference Include="Grpc.AspNetCore" Version="2.66.0" />
+        <PackageReference Include="Grpc.AspNetCore.Web" Version="2.67.0" />
     </ItemGroup>
     <ItemGroup>
         <Protobuf Include="Protos\temperature.proto" GrpcServices="Server" />
