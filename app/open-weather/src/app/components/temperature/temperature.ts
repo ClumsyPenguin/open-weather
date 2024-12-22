@@ -5,9 +5,10 @@
 // source: src/app/components/temperature/temperature.proto
 
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from '@bufbuild/protobuf/wire';
+import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
+import { type CallContext, type CallOptions } from "nice-grpc-common";
 
-export const protobufPackage = 'temperature';
+export const protobufPackage = "temperature";
 
 export interface GetTemperatureQuery {
   longitude: number;
@@ -23,10 +24,7 @@ function createBaseGetTemperatureQuery(): GetTemperatureQuery {
 }
 
 export const GetTemperatureQuery: MessageFns<GetTemperatureQuery> = {
-  encode(
-    message: GetTemperatureQuery,
-    writer: BinaryWriter = new BinaryWriter()
-  ): BinaryWriter {
+  encode(message: GetTemperatureQuery, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.longitude !== 0) {
       writer.uint32(9).double(message.longitude);
     }
@@ -36,12 +34,8 @@ export const GetTemperatureQuery: MessageFns<GetTemperatureQuery> = {
     return writer;
   },
 
-  decode(
-    input: BinaryReader | Uint8Array,
-    length?: number
-  ): GetTemperatureQuery {
-    const reader =
-      input instanceof BinaryReader ? input : new BinaryReader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): GetTemperatureQuery {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetTemperatureQuery();
     while (reader.pos < end) {
@@ -74,9 +68,7 @@ export const GetTemperatureQuery: MessageFns<GetTemperatureQuery> = {
 
   fromJSON(object: any): GetTemperatureQuery {
     return {
-      longitude: isSet(object.longitude)
-        ? globalThis.Number(object.longitude)
-        : 0,
+      longitude: isSet(object.longitude) ? globalThis.Number(object.longitude) : 0,
       latitude: isSet(object.latitude) ? globalThis.Number(object.latitude) : 0,
     };
   },
@@ -92,14 +84,10 @@ export const GetTemperatureQuery: MessageFns<GetTemperatureQuery> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<GetTemperatureQuery>, I>>(
-    base?: I
-  ): GetTemperatureQuery {
-    return GetTemperatureQuery.fromPartial(base ?? ({} as any));
+  create(base?: DeepPartial<GetTemperatureQuery>): GetTemperatureQuery {
+    return GetTemperatureQuery.fromPartial(base ?? {});
   },
-  fromPartial<I extends Exact<DeepPartial<GetTemperatureQuery>, I>>(
-    object: I
-  ): GetTemperatureQuery {
+  fromPartial(object: DeepPartial<GetTemperatureQuery>): GetTemperatureQuery {
     const message = createBaseGetTemperatureQuery();
     message.longitude = object.longitude ?? 0;
     message.latitude = object.latitude ?? 0;
@@ -112,22 +100,15 @@ function createBaseTemperatureResponse(): TemperatureResponse {
 }
 
 export const TemperatureResponse: MessageFns<TemperatureResponse> = {
-  encode(
-    message: TemperatureResponse,
-    writer: BinaryWriter = new BinaryWriter()
-  ): BinaryWriter {
+  encode(message: TemperatureResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.temperature !== 0) {
       writer.uint32(9).double(message.temperature);
     }
     return writer;
   },
 
-  decode(
-    input: BinaryReader | Uint8Array,
-    length?: number
-  ): TemperatureResponse {
-    const reader =
-      input instanceof BinaryReader ? input : new BinaryReader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): TemperatureResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTemperatureResponse();
     while (reader.pos < end) {
@@ -151,11 +132,7 @@ export const TemperatureResponse: MessageFns<TemperatureResponse> = {
   },
 
   fromJSON(object: any): TemperatureResponse {
-    return {
-      temperature: isSet(object.temperature)
-        ? globalThis.Number(object.temperature)
-        : 0,
-    };
+    return { temperature: isSet(object.temperature) ? globalThis.Number(object.temperature) : 0 };
   },
 
   toJSON(message: TemperatureResponse): unknown {
@@ -166,75 +143,53 @@ export const TemperatureResponse: MessageFns<TemperatureResponse> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<TemperatureResponse>, I>>(
-    base?: I
-  ): TemperatureResponse {
-    return TemperatureResponse.fromPartial(base ?? ({} as any));
+  create(base?: DeepPartial<TemperatureResponse>): TemperatureResponse {
+    return TemperatureResponse.fromPartial(base ?? {});
   },
-  fromPartial<I extends Exact<DeepPartial<TemperatureResponse>, I>>(
-    object: I
-  ): TemperatureResponse {
+  fromPartial(object: DeepPartial<TemperatureResponse>): TemperatureResponse {
     const message = createBaseTemperatureResponse();
     message.temperature = object.temperature ?? 0;
     return message;
   },
 };
 
-export interface TemperatureService {
-  GetTemperature(request: GetTemperatureQuery): Promise<TemperatureResponse>;
+export type TemperatureServiceDefinition = typeof TemperatureServiceDefinition;
+export const TemperatureServiceDefinition = {
+  name: "TemperatureService",
+  fullName: "temperature.TemperatureService",
+  methods: {
+    getTemperature: {
+      name: "GetTemperature",
+      requestType: GetTemperatureQuery,
+      requestStream: false,
+      responseType: TemperatureResponse,
+      responseStream: false,
+      options: {},
+    },
+  },
+} as const;
+
+export interface TemperatureServiceImplementation<CallContextExt = {}> {
+  getTemperature(
+    request: GetTemperatureQuery,
+    context: CallContext & CallContextExt,
+  ): Promise<DeepPartial<TemperatureResponse>>;
 }
 
-export const TemperatureServiceServiceName = 'temperature.TemperatureService';
-export class TemperatureServiceClientImpl implements TemperatureService {
-  private readonly rpc: Rpc;
-  private readonly service: string;
-  constructor(rpc: Rpc, opts?: { service?: string }) {
-    this.service = opts?.service || TemperatureServiceServiceName;
-    this.rpc = rpc;
-    this.GetTemperature = this.GetTemperature.bind(this);
-  }
-  GetTemperature(request: GetTemperatureQuery): Promise<TemperatureResponse> {
-    const data = GetTemperatureQuery.encode(request).finish();
-    const promise = this.rpc.request(this.service, 'GetTemperature', data);
-    return promise.then((data) =>
-      TemperatureResponse.decode(new BinaryReader(data))
-    );
-  }
+export interface TemperatureServiceClient<CallOptionsExt = {}> {
+  getTemperature(
+    request: DeepPartial<GetTemperatureQuery>,
+    options?: CallOptions & CallOptionsExt,
+  ): Promise<TemperatureResponse>;
 }
 
-interface Rpc {
-  request(
-    service: string,
-    method: string,
-    data: Uint8Array
-  ): Promise<Uint8Array>;
-}
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends globalThis.Array<infer U>
-  ? globalThis.Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
-    };
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;
@@ -245,6 +200,6 @@ export interface MessageFns<T> {
   decode(input: BinaryReader | Uint8Array, length?: number): T;
   fromJSON(object: any): T;
   toJSON(message: T): unknown;
-  create<I extends Exact<DeepPartial<T>, I>>(base?: I): T;
-  fromPartial<I extends Exact<DeepPartial<T>, I>>(object: I): T;
+  create(base?: DeepPartial<T>): T;
+  fromPartial(object: DeepPartial<T>): T;
 }
