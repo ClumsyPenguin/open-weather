@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "proto:generate": "protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=. src/app/**/**/*.proto"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +24,7 @@
     "c": "^1.1.1",
     "google-protobuf": "^3.21.4",
     "grpc-web": "^1.5.0",
+    "pnpm": "^9.15.1",
     "rxjs": "~7.8.0",
     "ts-proto": "^2.6.0",
     "ts-protoc-gen": "^0.15.0",
