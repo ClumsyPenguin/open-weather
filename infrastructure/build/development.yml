@@ -1,0 +1,61 @@
+# ASP.NET
+# Build and test ASP.NET projects.
+# Add steps that publish symbols, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
+
+trigger:
+ branches:
+   include:
+     - development
+ paths:
+   include:
+     - server/open-weather
+
+variables:
+  major: '1' 
+  minor: '0' 
+  patch: '0'
+  build: $[counter(variables['Build.SourceBranchName'], 1)]
+  root: 'server/open-weather'
+  buildConfiguration: 'Release'
+  buildDirectory: '$(Build.BinariesDirectory)/build'
+  publishDirectory: '$(Build.ArtifactStagingDirectory)/publish'
+
+stages:
+  - stage: Set version 
+    jobs: 
+    - job: SetVersionJob 
+      steps: 
+        - script: | 
+            echo "##vso[task.setvariable variable=FullVersion]$(major).$(minor).$(patch)-$(Build.SourceBranchName).$(build)"
+          displayName: 'Set Full Version Number' 
+       
+  - stage: Build & package GRPC server
+    jobs:
+      - job: BuildJob
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - task: DotNetCoreCLI@2
+            displayName: Restore dependencies
+            inputs:
+              command: 'restore'
+              projects: '$(root)/OpenWeather.Adapters.GRPC/OpenWeather.Adapters.GRPC.csproj'
+              arguments: '--force'
+          - task: DotNetCoreCLI@2
+            displayName: Build new artefact
+            inputs:
+              command: 'build'
+              projects: '$(root)/OpenWeather.Adapters.GRPC/OpenWeather.Adapters.GRPC.csproj'
+              arguments: '--configuration $(buildConfiguration) --output $(buildDirectory)'
+          - task: DotNetCoreCLI@2
+            displayName: Publish artefact
+            inputs:
+              command: 'publish'
+              projects: '$(root)/OpenWeather.Adapters.GRPC/OpenWeather.Adapters.GRPC.csproj'
+              arguments: '--configuration $(buildConfiguration) --output $(publishDirectory) --no-build'
+          - task: PublishBuildArtifacts@1 
+            inputs: 
+              PathtoPublish: '$(publishDirectory)' 
+              ArtifactName: 'Server-$(FullVersion)' 
+              publishLocation: 'Container'
