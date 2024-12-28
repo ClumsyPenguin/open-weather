@@ -26,6 +26,7 @@ stages:
           displayName: 'Set Full Version Number' 
        
   - stage: Build_and_package_GRPC_server
+    dependsOn: Set_version
     jobs:
       - job: BuildJob
         pool:
