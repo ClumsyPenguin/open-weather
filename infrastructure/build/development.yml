@@ -29,8 +29,7 @@ stages:
     dependsOn: Set_version
     jobs:
       - job: BuildJob
-        pool:
-          vmImage: 'ubuntu-latest'
+        pool: Proxmox agent
         steps:
           - task: DotNetCoreCLI@2
             displayName: Restore dependencies
