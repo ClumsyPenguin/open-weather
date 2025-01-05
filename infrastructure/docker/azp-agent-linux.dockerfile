@@ -62,6 +62,5 @@ USER agent
 ENV AGENT_ALLOW_RUNASROOT="true"
 ENV AZP_URL="https://dev.azure.com/geerinckxseppe"
 ENV AZP_POOL="Proxmox agent"
-ENV AZP_TOKEN="1znufSf4vTBtAeAUFYzd2bmmivCS7nwPf3r0TJ0JgtFxT4vBDwJAJQQJ99BAACAAAAAAAAAAAAASAZDOEryw"
 ENV AZP_AGENT_NAME="Docker Agent - Linux"
 ENTRYPOINT [ "./start.sh" ]
