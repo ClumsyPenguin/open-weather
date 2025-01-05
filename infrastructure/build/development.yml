@@ -39,7 +39,8 @@ stages:
               projects: '$(root)/OpenWeather.Adapters.GRPC/OpenWeather.Adapters.GRPC.csproj'
               arguments: '--force'
           - script: | 
-              cd azp/_work/1/s/server/open-weather/OpenWeather.Adapters.GRPC
+              echo ls
+              cd /azp/_work/1/s/server/open-weather/OpenWeather.Adapters.GRPC
               echo ls
             displayName: 'Checking things' 
           - task: DotNetCoreCLI@2
