@@ -38,11 +38,11 @@ stages:
               command: 'restore'
               projects: '$(root)/OpenWeather.Adapters.GRPC/OpenWeather.Adapters.GRPC.csproj'
               arguments: '--force'
-          - script: | 
-              echo ls
-              cd /azp/_work/1/s/server/open-weather/OpenWeather.Adapters.GRPC
-              echo ls
-            displayName: 'Checking things' 
+          - task: CmdLine@2
+            displayName: 'List files'
+            inputs:
+              script: |
+                for %%f in ( "/azp/_work/1/s/server/open-weather/OpenWeather.Adapters.GRPC/" ) do @echo %%f
           - task: DotNetCoreCLI@2
             displayName: Build new artefact
             inputs:
