@@ -6,6 +6,7 @@ RUN apk add --upgrade --no-cache \
     bash \
     curl \
     git \
+    jq \
     ca-certificates-bundle \
     icu-libs \
     icu-data-full \
