@@ -42,7 +42,7 @@ stages:
             displayName: 'List files'
             inputs:
               script: |
-                inputs: script: 'ls -R /azp/_work/1/s/server/open-weather/OpenWeather.Adapters.GRPC/'
+                ls -R /azp/_work/1/s/server/open-weather/OpenWeather.Adapters.GRPC/
           - task: DotNetCoreCLI@2
             displayName: Build new artefact
             inputs:
