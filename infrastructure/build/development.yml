@@ -11,11 +11,12 @@ variables:
   minor: "0"
   patch: "0"
   revision: $[counter('revision', 1)]
+  fullVersion: $(major).$(minor).$(patch).$(revision)
   root: "server/open-weather"
   buildConfiguration: "Release"
   publishDirectory: "$(Build.ArtifactStagingDirectory)/publish"
 
-name: $(major).$(minor).$(patch).$(revision)
+name: $(fullVersion)
 
 stages:
   - stage: Build_and_package_REST_server
