@@ -13,7 +13,6 @@ variables:
   build: $[counter(variables['Build.SourceBranchName'], 1)]
   root: "server/open-weather"
   buildConfiguration: "Release"
-  buildDirectory: "$(Build.BinariesDirectory)/build"
   publishDirectory: "$(Build.ArtifactStagingDirectory)/publish"
 
 stages:
@@ -23,7 +22,8 @@ stages:
         pool: Proxmox agent
         steps:
           - script: |
-              echo "##vso[task.setvariable variable=FullVersion]$(major).$(minor).$(patch)-$(Build.SourceBranchName).$(build)"
+              ##vso[task.setvariable variable=FullVersion]$(major).$(minor).$(patch)-$(Build.SourceBranchName).$(build)
+              echo $(FullVersion)
             displayName: "Set Full Version Number"
 
   - stage: Build_and_package_REST_server
@@ -43,15 +43,15 @@ stages:
             inputs:
               command: "build"
               projects: "$(root)/OpenWeather.Adapters.REST/OpenWeather.Adapters.REST.csproj"
-              arguments: "--configuration $(buildConfiguration) --output $(buildDirectory) --no-restore"          
+              arguments: "--configuration $(buildConfiguration) --output $(publishDirectory) --no-restore"          
           - task: CmdLine@2
             displayName: 'List files'
             inputs:
               script: |
-                ls -R $(buildDirectory)
+                ls -R $(publishDirectory)
           - task: PublishBuildArtifacts@1
             displayName: Publish artefact
             inputs:
-              PathtoPublish: "$(buildDirectory)"
+              PathtoPublish: "$(publishDirectory)"
               ArtifactName: "Server-$(FullVersion)"
               publishLocation: "Container"
