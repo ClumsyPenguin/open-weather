@@ -37,12 +37,7 @@ stages:
             inputs:
               command: "restore"
               projects: "$(root)/OpenWeather.Adapters.REST/OpenWeather.Adapters.REST.csproj"
-              arguments: "--force"
-          - task: CmdLine@2
-            displayName: "List files"
-            inputs:
-              script: |
-                ls -R /azp/_work/1/s/server/open-weather/OpenWeather.Adapters.REST/
+              arguments: "--force"         
           - task: DotNetCoreCLI@2
             displayName: Build new artefact
             inputs:
