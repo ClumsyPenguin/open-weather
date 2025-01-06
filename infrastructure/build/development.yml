@@ -44,11 +44,12 @@ stages:
               command: "build"
               projects: "$(root)/OpenWeather.Adapters.REST/OpenWeather.Adapters.REST.csproj"
               arguments: "--configuration $(buildConfiguration) --output $(buildDirectory)"
+            
           - task: DotNetCoreCLI@2
             displayName: Publish artefact
             inputs:
               command: "publish"
-              projects: "$(root)/OpenWeather.Adapters.REST/OpenWeather.Adapters.REST.csproj"
+              projects: "$(buildDirectory)/OpenWeather.Adapters.REST.csproj"
               arguments: "--configuration $(buildConfiguration) --output $(publishDirectory) --no-build"
           - task: PublishBuildArtifacts@1
             inputs:
