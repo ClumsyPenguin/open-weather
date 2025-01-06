@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenWeather.Orchestration", "OpenWeather.Orchestration\OpenWeather.Orchestration.csproj", "{10FBD227-92AE-46F1-9CFD-EC3A7E17D84C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenWeather.Adapters.GRPC", "OpenWeather.Adapters.GRPC\OpenWeather.Adapters.GRPC.csproj", "{6DE6ECE0-8130-4E0B-83F8-86FE51BF9A01}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F400202F-9B96-435E-8919-E7CB297EB820}"
 	ProjectSection(SolutionItems) = preProject
 		compose.yaml = compose.yaml
@@ -21,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OpenWeather.Azure", "OpenWe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenWeather.Adapters.Azure", "OpenWeather.Adapters.Azure\OpenWeather.Adapters.Azure.csproj", "{3CD9D563-4A2E-4B44-B0B0-B620AC668168}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenWeather.Adapters.REST", "OpenWeather.Adapters.REST\OpenWeather.Adapters.REST.csproj", "{CA318923-DE50-4BDD-8532-C789DFF7B249}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,10 +31,6 @@ Global
 		{10FBD227-92AE-46F1-9CFD-EC3A7E17D84C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10FBD227-92AE-46F1-9CFD-EC3A7E17D84C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10FBD227-92AE-46F1-9CFD-EC3A7E17D84C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6DE6ECE0-8130-4E0B-83F8-86FE51BF9A01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6DE6ECE0-8130-4E0B-83F8-86FE51BF9A01}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6DE6ECE0-8130-4E0B-83F8-86FE51BF9A01}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6DE6ECE0-8130-4E0B-83F8-86FE51BF9A01}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D2749D7E-75CE-4ED3-96B1-BADBDA786218}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D2749D7E-75CE-4ED3-96B1-BADBDA786218}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2749D7E-75CE-4ED3-96B1-BADBDA786218}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,11 +47,15 @@ Global
 		{3CD9D563-4A2E-4B44-B0B0-B620AC668168}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CD9D563-4A2E-4B44-B0B0-B620AC668168}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CD9D563-4A2E-4B44-B0B0-B620AC668168}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA318923-DE50-4BDD-8532-C789DFF7B249}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA318923-DE50-4BDD-8532-C789DFF7B249}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA318923-DE50-4BDD-8532-C789DFF7B249}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA318923-DE50-4BDD-8532-C789DFF7B249}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{6DE6ECE0-8130-4E0B-83F8-86FE51BF9A01} = {423427BC-9181-4059-97D1-2EED37360F99}
 		{2EE9498A-A61A-4C34-AD1B-810177DD7246} = {423427BC-9181-4059-97D1-2EED37360F99}
 		{0917473E-1C79-4D1F-B99F-5B920E974567} = {443CC3F6-A5F8-4CA5-B0C7-6A1D36ADC7F9}
 		{3CD9D563-4A2E-4B44-B0B0-B620AC668168} = {423427BC-9181-4059-97D1-2EED37360F99}
+		{CA318923-DE50-4BDD-8532-C789DFF7B249} = {423427BC-9181-4059-97D1-2EED37360F99}
 	EndGlobalSection
 EndGlobal

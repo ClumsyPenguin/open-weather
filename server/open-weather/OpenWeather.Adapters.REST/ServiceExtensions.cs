@@ -1,4 +1,4 @@
-namespace OpenWeather.Adapter.GRPC;
+namespace OpenWeather.Adapters.REST;
 
 public static class ServiceExtensions
 {
