@@ -16,7 +16,7 @@ variables:
   buildConfiguration: "Release"
   publishDirectory: "$(Build.ArtifactStagingDirectory)/publish"
 
-name: $(fullVersion)
+name: $(major).$(minor).$(patch).$(revision)
 
 stages:
   - stage: Build_and_package_REST_server
