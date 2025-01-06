@@ -21,8 +21,9 @@ stages:
         pool: Proxmox agent
         steps:
           - bash: |
-              echo "##vso[task.setvariable variable=fullVersion]$(major).$(minor).$(patch)-$(Build.SourceBranchName).$(Build.BuildNumber)"
-              echo "$(fullVersion)"
+              fullVersion="$(major).$(minor).$(patch)-$(Build.SourceBranchName).$(Build.BuildNumber)" 
+              echo "##vso[task.setvariable variable=fullVersion]$fullVersion" 
+              echo "$fullVersion"
             displayName: "Set Full Version Number"
 
   - stage: Build_and_package_REST_server
