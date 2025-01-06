@@ -1,4 +1,4 @@
-FROM alpine:3.20
+FROM alpine:3.21
 
 ENV TARGETARCH="linux-musl-x64"
 
@@ -14,7 +14,8 @@ RUN apk add --upgrade --no-cache \
     libssl3 \
     libstdc++ \
     zlib \
-    dotnet8-sdk
+    dotnet8-sdk \ 
+    dotnet9-sdk
 
 RUN dotnet help
 
