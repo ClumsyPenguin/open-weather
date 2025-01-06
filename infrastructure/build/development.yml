@@ -49,8 +49,7 @@ stages:
             displayName: 'List files'
             inputs:
               script: |
-                inputs: script: 'ls -R $(buildDirectory)'
-                ls -R /azp/_work/1/s/server/open-weather/OpenWeather.Adapters.GRPC/
+                ls -R $(buildDirectory)
 
           - task: DotNetCoreCLI@2
             displayName: Create publication artefact
