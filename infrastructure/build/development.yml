@@ -10,24 +10,15 @@ variables:
   major: "1"
   minor: "0"
   patch: "0"
+  revision: $[counter('revision', 1)]
   root: "server/open-weather"
   buildConfiguration: "Release"
   publishDirectory: "$(Build.ArtifactStagingDirectory)/publish"
 
-stages:
-  - stage: Set_version
-    jobs:
-      - job: SetVersionJob
-        pool: Proxmox agent
-        steps:
-          - bash: |
-              fullVersion="$(major).$(minor).$(patch)-$(Build.SourceBranchName).$(Build.BuildNumber)" 
-              echo "##vso[task.setvariable variable=fullVersion]$fullVersion" 
-              echo "$fullVersion"
-            displayName: "Set Full Version Number"
+name: $(major).$(minor).$(patch).$(revision)
 
+stages:
   - stage: Build_and_package_REST_server
-    dependsOn: Set_version
     jobs:
       - job: BuildJob
         pool: Proxmox agent
@@ -48,5 +39,5 @@ stages:
             displayName: Publish artefact
             inputs:
               PathtoPublish: "$(publishDirectory)"
-              ArtifactName: "Server-$(fullVersion)"
+              ArtifactName: 'Server-$(fullVersion)'
               publishLocation: "Container"
