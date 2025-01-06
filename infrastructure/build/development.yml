@@ -43,23 +43,15 @@ stages:
             inputs:
               command: "build"
               projects: "$(root)/OpenWeather.Adapters.REST/OpenWeather.Adapters.REST.csproj"
-              arguments: "--configuration $(buildConfiguration) --output $(buildDirectory)"
-          
+              arguments: "--configuration $(buildConfiguration) --output $(buildDirectory) --no-restore"          
           - task: CmdLine@2
             displayName: 'List files'
             inputs:
               script: |
                 ls -R $(buildDirectory)
-
-          - task: DotNetCoreCLI@2
-            displayName: Create publication artefact
-            inputs:
-              command: "publish"
-              projects: "$(buildDirectory)/OpenWeather.Adapters.REST.csproj"
-              arguments: "--configuration $(buildConfiguration) --output $(publishDirectory) --no-build"
           - task: PublishBuildArtifacts@1
             displayName: Publish artefact
             inputs:
-              PathtoPublish: "$(publishDirectory)"
+              PathtoPublish: "$(buildDirectory)"
               ArtifactName: "Server-$(FullVersion)"
               publishLocation: "Container"
