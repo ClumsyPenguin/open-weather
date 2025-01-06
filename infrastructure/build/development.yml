@@ -20,9 +20,9 @@ stages:
       - job: SetVersionJob
         pool: Proxmox agent
         steps:
-          - script: |
+          - bash: |
               ##vso[task.setvariable variable=fullVersion]$(major).$(minor).$(patch)-$(Build.SourceBranchName).$(Build.BuildNumber)
-              echo $(fullVersion)
+              echo "$(fullVersion)"
             displayName: "Set Full Version Number"
 
   - stage: Build_and_package_REST_server
@@ -42,12 +42,7 @@ stages:
             inputs:
               command: "publish"
               projects: "$(root)/OpenWeather.Adapters.REST/OpenWeather.Adapters.REST.csproj"
-              arguments: "--configuration $(buildConfiguration) --output $(publishDirectory) --no-restore"          
-          - task: CmdLine@2
-            displayName: 'List files'
-            inputs:
-              script: |
-                ls -R $(publishDirectory)
+              arguments: "--configuration $(buildConfiguration) --output $(publishDirectory) --no-restore"
           - task: PublishBuildArtifacts@1
             displayName: Publish artefact
             inputs:
