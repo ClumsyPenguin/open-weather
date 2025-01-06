@@ -44,14 +44,22 @@ stages:
               command: "build"
               projects: "$(root)/OpenWeather.Adapters.REST/OpenWeather.Adapters.REST.csproj"
               arguments: "--configuration $(buildConfiguration) --output $(buildDirectory)"
-            
+          
+          - task: CmdLine@2
+            displayName: 'List files'
+            inputs:
+              script: |
+                inputs: script: 'ls -R $(buildDirectory)'
+                ls -R /azp/_work/1/s/server/open-weather/OpenWeather.Adapters.GRPC/
+
           - task: DotNetCoreCLI@2
-            displayName: Publish artefact
+            displayName: Create publication artefact
             inputs:
               command: "publish"
               projects: "$(buildDirectory)/OpenWeather.Adapters.REST.csproj"
               arguments: "--configuration $(buildConfiguration) --output $(publishDirectory) --no-build"
           - task: PublishBuildArtifacts@1
+            displayName: Publish artefact
             inputs:
               PathtoPublish: "$(publishDirectory)"
               ArtifactName: "Server-$(FullVersion)"
