@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './temperature.component.html',
   styleUrls: ['./temperature.component.scss']
 })
+
 export class TemperatureComponent implements OnInit {
   temperatureValue?: number;
   errorMessage?: string;
