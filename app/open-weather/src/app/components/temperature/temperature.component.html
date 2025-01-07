@@ -1,3 +1,16 @@
-<div ngIf="temperatureValue !== undefined">
-  Current temperature: {{ temperatureValue }} °C
+<!-- temperature.component.html -->
+<div class="temperature-container">
+  <h2>Current Temperature</h2>
+
+  <div *ngIf="isLoading">
+    <p>Loading temperature...</p>
+  </div>
+
+  <div *ngIf="!isLoading && temperatureValue !== undefined">
+    <p>The current temperature is: {{ temperatureValue }}°C</p>
+  </div>
+
+  <div *ngIf="!isLoading && errorMessage">
+    <p class="error">Error: {{ errorMessage }}</p>
+  </div>
 </div>

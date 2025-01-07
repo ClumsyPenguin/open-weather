@@ -6,8 +6,7 @@ public static partial class ApiMapper
 {
     public static WebApplication MapTemperatureEndpoints(this WebApplication app)
     {
-        var temperatureItems = app.MapGroup("/temperature")
-            .RequireCors("AllowAll");
+        var temperatureItems = app.MapGroup("/temperature");
 
         temperatureItems.MapGet("/current-temperature", TemperatureOperations.GetCurrentTemperature)
             .WithName("GetCurrentTemperature")

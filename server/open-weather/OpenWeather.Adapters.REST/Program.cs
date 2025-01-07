@@ -4,7 +4,7 @@ using Scalar.AspNetCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
-builder.Services.AddCors();
+builder.Services.AddCorsServices();
 
 var app = builder.Build();
 
@@ -23,5 +23,5 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.MapTemperatureEndpoints();
-app.UseCors();
+app.UseCors("AllowAll");
 app.Run();

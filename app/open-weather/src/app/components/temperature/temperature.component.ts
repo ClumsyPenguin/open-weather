@@ -1,38 +1,37 @@
 import { Component, OnInit } from '@angular/core';
-import { createChannel, createClient } from 'nice-grpc-web';
-import {
-  GetTemperatureQuery,
-  TemperatureServiceClient,
-  TemperatureServiceDefinition
-} from './temperature';
+import { TemperatureService } from './temperature.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-temperature',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './temperature.component.html',
-  styleUrl: './temperature.component.scss'
+  styleUrls: ['./temperature.component.scss']
 })
 export class TemperatureComponent implements OnInit {
-  channel = createChannel('https://localhost:7249');
-
-  client: TemperatureServiceClient = createClient(
-    TemperatureServiceDefinition,
-    this.channel
-  );
-
   temperatureValue?: number;
+  errorMessage?: string;
+  isLoading = true;
 
-  constructor() {}
+  constructor(private temperatureService: TemperatureService) {}
 
-  async ngOnInit(): Promise<void> {
-    try {
-      const response = await this.client.getTemperature(
-        GetTemperatureQuery.create({})
-      );
-      console.log('Temperature Response:', response);
-      this.temperatureValue = response.temperature;
-    } catch (error) {
-      console.error('Error calling getTemperature:', error);
-    }
+  ngOnInit(): void {
+    this.fetchTemperature();
+  }
+
+  fetchTemperature(): void {
+    this.temperatureService.getCurrentTemperature().subscribe({
+      next: (response: number) => {
+        console.log('Temperature Response:', response);
+        this.temperatureValue = response;
+        this.isLoading = false;
+      },
+      error: (error: Error) => {
+        console.error('Error calling getCurrentTemperature:', error);
+        this.errorMessage = error.message;
+        this.isLoading = false;
+      }
+    });
   }
 }
