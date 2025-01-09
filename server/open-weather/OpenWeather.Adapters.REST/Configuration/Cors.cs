@@ -1,8 +1,8 @@
-namespace OpenWeather.Adapters.REST;
+namespace OpenWeather.Adapters.REST.Configuration;
 
-public static class ServiceExtensions
+public static class Cors
 {
-    public static IServiceCollection AddCorsServices(this IServiceCollection services)
+    public static IServiceCollection ConfigureCors(this IServiceCollection services)
     {
         services.AddCors(options =>
         {
