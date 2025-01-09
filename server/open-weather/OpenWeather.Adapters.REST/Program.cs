@@ -1,10 +1,17 @@
+using FluentValidation;
 using OpenWeather.Adapters.REST;
+using OpenWeather.Adapters.REST.Temperature;
+using OpenWeather.Adapters.REST.Temperature.Ports;
+using OpenWeather.Domain.Temperature;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
 builder.Services.AddCorsServices();
+
+builder.Services.AddScoped<ITemperatureService, TemperatureService>();
+builder.Services.AddValidatorsFromAssembly(OpenWeather.Domain.AssemblyReference.Assembly);
 
 var app = builder.Build();
 
