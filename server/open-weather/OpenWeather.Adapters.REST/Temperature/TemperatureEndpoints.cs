@@ -23,7 +23,7 @@ public static class TemperatureOperations
     public static async Task<Results<Ok<double>, UnprocessableEntity, NotFound>> GetCurrentTemperature(ITemperatureService temperatureService)
     {
         var temperature =  await temperatureService.GetCurrentTemperature();
-
-        return null;
+        
+        return TypedResults.Ok(temperature);
     }
 }
