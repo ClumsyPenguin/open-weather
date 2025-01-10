@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TemperatureService } from './temperature.service';
 import { CommonModule } from '@angular/common';
+import { LocationService } from '../../services/location.service';
 
 @Component({
   selector: 'app-temperature',
@@ -14,14 +15,15 @@ export class TemperatureComponent implements OnInit {
   errorMessage?: string;
   isLoading = true;
 
-  constructor(private temperatureService: TemperatureService) {}
+  constructor(private temperatureService: TemperatureService, private locationService: LocationService) {}
 
   ngOnInit(): void {
     this.fetchTemperature();
   }
 
-  fetchTemperature(): void {
-    this.temperatureService.getCurrentTemperature(1, 1).subscribe({
+  async fetchTemperature(): Promise<void> {
+    const position = await this.locationService.getCurrentLocationAsync();
+    this.temperatureService.getCurrentTemperature(position.longitude, position.latitude).subscribe({
       next: (response: number) => {
         console.log('Temperature Response:', response);
         this.temperatureValue = response;
