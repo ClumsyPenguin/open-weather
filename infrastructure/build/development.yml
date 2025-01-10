@@ -24,6 +24,12 @@ stages:
       - job: BuildJob
         pool: Proxmox agent
         steps:
+          - task: UseDotNet@2
+            displayName: "Use .NET 9.0 SDK"
+            inputs:
+              packageType: 'sdk'
+              version: '9.0.x'
+
           - task: DotNetCoreCLI@2
             displayName: Restore dependencies
             inputs:
