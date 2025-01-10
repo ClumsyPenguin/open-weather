@@ -14,7 +14,9 @@ export class TemperatureService {
   constructor(private http: HttpClient) {}
 
   getCurrentTemperature(longitude: number, latitude: number): Observable<number> {
-    return this.http.get<number>(this.apiUrl + `?long=${longitude}&lat=${latitude}`).pipe(catchError(this.handleError));
+    return this.http
+      .get<number>(this.apiUrl, { params: new HttpParams().set('long', longitude).set('lat', latitude) })
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {
