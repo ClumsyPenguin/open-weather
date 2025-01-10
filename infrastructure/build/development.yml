@@ -40,5 +40,35 @@ stages:
             displayName: Publish artefact
             inputs:
               PathtoPublish: "$(publishDirectory)"
-              ArtifactName: 'Server-$(fullVersion)'
+              ArtifactName: 'API-$(fullVersion)'
               publishLocation: "Container"
+  - stage: Build_and_package_Azure_functions
+    jobs:
+      - job: BuildJob
+        pool: Proxmox agent
+        steps:
+          - task: DotNetCoreCLI@2
+            displayName: Restore dependencies
+            inputs:
+              command: "restore"
+              projects: "$(root)/OpenWeather.Azure.Function.LoadOpenMeteoData/OpenWeather.Azure.Function.LoadOpenMeteoData.csproj"
+              arguments: "--force"         
+          - task: DotNetCoreCLI@2
+            displayName: Build new publication artefact
+            inputs:
+              command: "publish"
+              projects: "$(root)/OpenWeather.Azure.Function.LoadOpenMeteoData/OpenWeather.Azure.Function.LoadOpenMeteoData.csproj"
+              arguments: "--configuration $(buildConfiguration) --output $(publishDirectory) --no-restore"
+          - task: PublishBuildArtifacts@1
+            displayName: Publish artefact
+            inputs:
+              PathtoPublish: "$(publishDirectory)"
+              ArtifactName: 'LoadFunction-$(fullVersion)'
+              publishLocation: "Container"
+  # - stage: Deploy_API
+  #   condition: eq(variables['Build.Reason'], 'Manual'
+  #   dependsOn: Build_and_package_REST_server
+  #   jobs:
+  #     - job: DeployJob
+  #       pool: Proxmox agent
+  #       steps:
