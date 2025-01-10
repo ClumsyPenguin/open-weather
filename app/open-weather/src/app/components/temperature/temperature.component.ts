@@ -9,7 +9,6 @@ import { CommonModule } from '@angular/common';
   templateUrl: './temperature.component.html',
   styleUrls: ['./temperature.component.scss']
 })
-
 export class TemperatureComponent implements OnInit {
   temperatureValue?: number;
   errorMessage?: string;
@@ -22,7 +21,7 @@ export class TemperatureComponent implements OnInit {
   }
 
   fetchTemperature(): void {
-    this.temperatureService.getCurrentTemperature().subscribe({
+    this.temperatureService.getCurrentTemperature(1, 1).subscribe({
       next: (response: number) => {
         console.log('Temperature Response:', response);
         this.temperatureValue = response;
