@@ -11,7 +11,7 @@ builder.Services.AddOpenApi();
 builder.Services.ConfigureCors();
 
 builder.Services.AddScoped<ITemperatureService, TemperatureService>();
-builder.Services.AddValidatorsFromAssembly(OpenWeather.Domain.AssemblyReference.Assembly);
+builder.Services.AddValidatorsFromAssembly(OpenWeather.Domain.AssemblyReference.Assembly, includeInternalTypes: true);
 
 var app = builder.Build();
 
