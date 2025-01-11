@@ -1,8 +1,8 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using OpenWeather.Adapters.REST.Temperature.Ports;
 using OpenWeather.Domain.Temperature.Models;
+using OpenWeather.Domain.Temperature.Services.Ports;
 
 namespace OpenWeather.Adapters.REST.Temperature;
 

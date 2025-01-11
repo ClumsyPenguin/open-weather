@@ -11,8 +11,4 @@
       <PackageReference Include="Vogen" Version="6.0.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Temperature\Services\" />
-    </ItemGroup>
-
 </Project>

@@ -1,6 +1,6 @@
 using OpenWeather.Domain.Temperature.Models;
 
-namespace OpenWeather.Adapters.REST.Temperature.Ports;
+namespace OpenWeather.Domain.Temperature.Services.Ports;
 
 public interface ITemperatureService
 {
