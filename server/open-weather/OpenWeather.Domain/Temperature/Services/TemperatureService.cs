@@ -12,6 +12,7 @@ public class TemperatureService(HybridCache hybridCache) : ITemperatureService
         return await hybridCache.GetOrCreateAsync(
             $"temperature-{request.Longitude}-{request.Latitude}",
             async _ => await Task.FromResult(21d),
+            tags: ["temperature"],
             cancellationToken: cancellationToken
         );
     }
