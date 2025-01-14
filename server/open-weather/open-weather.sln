@@ -22,9 +22,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenWeather.Adapters.Azure"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenWeather.Adapters.REST", "OpenWeather.Adapters.REST\OpenWeather.Adapters.REST.csproj", "{CA318923-DE50-4BDD-8532-C789DFF7B249}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "open-weather.AppHost", "open-weather.AppHost\open-weather.AppHost.csproj", "{7E6AA36E-E65D-42A2-9DA6-8FEE0AEA1B21}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "open-weather.Orchestration", "open-weather.Orchestration\open-weather.Orchestration.csproj", "{7E6AA36E-E65D-42A2-9DA6-8FEE0AEA1B21}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "open-weather.ServiceDefaults", "open-weather.ServiceDefaults\open-weather.ServiceDefaults.csproj", "{729804E8-6EBC-47FD-98B0-F3942AC95D3F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OpenWeather.Aspire", "OpenWeather.Aspire", "{BA06EC1F-F46A-4D2B-9668-3AB37191562D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,5 +71,7 @@ Global
 		{0917473E-1C79-4D1F-B99F-5B920E974567} = {443CC3F6-A5F8-4CA5-B0C7-6A1D36ADC7F9}
 		{3CD9D563-4A2E-4B44-B0B0-B620AC668168} = {423427BC-9181-4059-97D1-2EED37360F99}
 		{CA318923-DE50-4BDD-8532-C789DFF7B249} = {423427BC-9181-4059-97D1-2EED37360F99}
+		{729804E8-6EBC-47FD-98B0-F3942AC95D3F} = {BA06EC1F-F46A-4D2B-9668-3AB37191562D}
+		{7E6AA36E-E65D-42A2-9DA6-8FEE0AEA1B21} = {BA06EC1F-F46A-4D2B-9668-3AB37191562D}
 	EndGlobalSection
 EndGlobal
