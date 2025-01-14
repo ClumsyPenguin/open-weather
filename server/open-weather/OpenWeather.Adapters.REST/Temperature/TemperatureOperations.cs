@@ -1,7 +1,6 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using OpenWeather.Domain.Temperature;
 using OpenWeather.Domain.Temperature.Models;
 using OpenWeather.Domain.Temperature.Services.Ports;
 
