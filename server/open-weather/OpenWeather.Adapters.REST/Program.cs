@@ -35,5 +35,5 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.MapTemperatureEndpoints();
-app.UseCors("AllowAll");
+app.UseCors(Cors.AllowAllPolicy);
 app.Run();
