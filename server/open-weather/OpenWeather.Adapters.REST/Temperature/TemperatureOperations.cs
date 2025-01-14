@@ -12,16 +12,17 @@ public static class TemperatureOperations
         [FromQuery(Name = "long")] double longitude, 
         [FromQuery(Name = "lat")] double latitude,
         ITemperatureService temperatureService,
-        IValidator<GetCurrentTemperatureRequest> validator)
+        IValidator<GetCurrentTemperatureRequest> validator,
+        CancellationToken cancellationToken)
     {
         var request = new GetCurrentTemperatureRequest(longitude, latitude);
         
-        var validationResult = await validator.ValidateAsync(request);
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
         //TODO this should be an [ValidateRequest] attribute of some sort
         if (!validationResult.IsValid)
             return TypedResults.ValidationProblem(validationResult.ToDictionary());
-        
-        var temperature =  await temperatureService.GetCurrentTemperature(request);
+
+        var temperature = await temperatureService.GetCurrentTemperatureAsync(request, cancellationToken);
         return TypedResults.Ok(temperature);
     }
 }

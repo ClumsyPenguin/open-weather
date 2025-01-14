@@ -4,5 +4,5 @@ namespace OpenWeather.Domain.Temperature.Services.Ports;
 
 public interface ITemperatureService
 {
-    public Task<double> GetCurrentTemperature(GetCurrentTemperatureRequest request);
+    public Task<double> GetCurrentTemperatureAsync(GetCurrentTemperatureRequest request, CancellationToken cancellationToken);
 }

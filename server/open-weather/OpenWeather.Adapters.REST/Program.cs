@@ -12,7 +12,7 @@ builder.AddServiceDefaults();
 
 builder.Services.AddOpenApi();
 builder.Services.ConfigureCors();
-
+builder.Services.ConfigureCaching(builder.Configuration);
 builder.Services.AddScoped<ITemperatureService, TemperatureService>();
 builder.Services.AddValidatorsFromAssembly(OpenWeather.Domain.AssemblyReference.Assembly, includeInternalTypes: true);
 
