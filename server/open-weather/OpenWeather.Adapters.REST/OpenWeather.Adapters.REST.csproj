@@ -10,7 +10,7 @@
     <ItemGroup>
         <PackageReference Include="FluentValidation" Version="11.11.0" />
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
         <PackageReference Include="Scalar.AspNetCore" Version="1.2.72" />
     </ItemGroup>
 
@@ -21,6 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\open-weather.ServiceDefaults\open-weather.ServiceDefaults.csproj" />
       <ProjectReference Include="..\OpenWeather.Domain\OpenWeather.Domain.csproj" />
     </ItemGroup>
 

@@ -8,6 +8,8 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 builder.Services.AddOpenApi();
 builder.Services.ConfigureCors();
 
@@ -15,6 +17,8 @@ builder.Services.AddScoped<ITemperatureService, TemperatureService>();
 builder.Services.AddValidatorsFromAssembly(OpenWeather.Domain.AssemblyReference.Assembly, includeInternalTypes: true);
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 if (app.Environment.IsDevelopment())
 {
