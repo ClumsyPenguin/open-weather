@@ -23,7 +23,10 @@ public class TemperatureConfiguration : IEntityTypeConfiguration<Temperature>
             .Property(b => b.TimeStamp)
             .IsRequired();
         
-        builder.HasIndex(i => new { i.Latitude, i.Longitude });
-        builder.HasIndex(i => new { i.TimeStamp ,i.Latitude, i.Longitude });
+        
+        builder.HasIndex(i => new { i.Latitude, i.Longitude }); //for efficient location-based queries
+        builder.HasIndex(i => new { i.TimeStamp ,i.Latitude, i.Longitude }); //for efficient time-based queries (start-end)
+        
+        //TODO incorporate spatial or geospatial indexing for "find everything within a certain radius or bounding box."
     }
 }
