@@ -1,5 +1,4 @@
 using FluentValidation;
-using OpenWeather.Adapters.Postgres;
 using OpenWeather.Adapters.REST.Configuration;
 using OpenWeather.Adapters.REST.Temperature;
 using OpenWeather.Domain.Temperature.Services;
@@ -13,7 +12,6 @@ builder.AddServiceDefaults();
 builder.Services.AddOpenApi();
 builder.Services.ConfigureCors();
 builder.Services.ConfigureCaching(builder.Configuration);
-builder.Services.ConfigureDb(builder.Configuration);
 
 builder.Services.AddValidatorsFromAssembly(OpenWeather.Domain.AssemblyReference.Assembly, includeInternalTypes: true);
 
@@ -33,7 +31,6 @@ if (app.Environment.IsDevelopment())
             .WithTheme(ScalarTheme.Moon);
     });
 }
-app.CreateDbIfNotExists();
 app.UseHttpsRedirection();
 app.MapTemperatureEndpoints();
 app.UseCors(Cors.AllowAllPolicy);
