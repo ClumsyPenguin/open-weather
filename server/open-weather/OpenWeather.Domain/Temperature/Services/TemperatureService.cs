@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Caching.Hybrid;
 using OpenWeather.Domain.Temperature.Models;
 using OpenWeather.Domain.Temperature.Services.Ports;
 
