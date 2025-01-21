@@ -1,8 +1,5 @@
-using FluentValidation;
 using OpenWeather.Adapters.REST.Configuration;
 using OpenWeather.Adapters.REST.Temperature;
-using OpenWeather.Domain.Temperature.Services;
-using OpenWeather.Domain.Temperature.Services.Ports;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
