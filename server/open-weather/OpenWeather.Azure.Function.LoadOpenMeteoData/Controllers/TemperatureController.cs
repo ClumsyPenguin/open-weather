@@ -14,9 +14,7 @@ public class TemperatureController(ILogger<TemperatureController> logger)
     [Function(nameof(GetCurrentTemperature))]
     [OpenApiOperation(operationId: "Run")]
     [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(int), Description = "The OK response message containing the current temperature")]
-    public IActionResult GetCurrentTemperature(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req,
-        ILogger log)
+    public IActionResult GetCurrentTemperature([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req,ILogger log)
     {
         return new OkObjectResult(1);
     }
