@@ -31,6 +31,7 @@ if (app.Environment.IsDevelopment())
             .WithTheme(ScalarTheme.Moon);
     });
 }
+
 app.UseHttpsRedirection();
 app.MapTemperatureEndpoints();
 app.UseCors(Cors.AllowAllPolicy);
