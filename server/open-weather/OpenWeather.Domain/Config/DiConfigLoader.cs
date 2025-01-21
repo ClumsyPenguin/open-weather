@@ -6,7 +6,7 @@ namespace OpenWeather.Domain.Config
     {
         public static void Load(IServiceCollection serviceCollection)
         {
-            Temperature.Config.DiConfig.Load(serviceCollection);
+            Temperature.Config.DiConfig.Configure(serviceCollection);
         }
     }
 }

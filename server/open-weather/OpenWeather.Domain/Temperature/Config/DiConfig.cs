@@ -11,7 +11,7 @@ namespace OpenWeather.Domain.Temperature.Config
 {
     internal static class DiConfig
     {
-        public static void Load(IServiceCollection serviceCollection)
+        public static void Configure(IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<ITemperatureService, TemperatureService>();
         }
