@@ -4,7 +4,7 @@ using OpenWeather.Domain.Temperature.Services.Ports;
 
 namespace OpenWeather.Domain.Temperature.Services;
 
-public class TemperatureService(HybridCache hybridCache) : ITemperatureService
+internal class TemperatureService(HybridCache hybridCache) : ITemperatureService
 {
     public async Task<double> GetCurrentTemperatureAsync(GetCurrentTemperatureRequest request,
         CancellationToken cancellationToken)
