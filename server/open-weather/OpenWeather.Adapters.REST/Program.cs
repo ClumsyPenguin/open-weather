@@ -13,7 +13,7 @@ builder.Services.AddOpenApi();
 builder.Services.ConfigureCors();
 builder.Services.ConfigureCaching(builder.Configuration);
 
-builder.Services.AddValidatorsFromAssembly(OpenWeather.Domain.AssemblyReference.Assembly, includeInternalTypes: true);
+ConfigureDependencies(builder);
 
 var app = builder.Build();
 
@@ -36,3 +36,9 @@ app.UseHttpsRedirection();
 app.MapTemperatureEndpoints();
 app.UseCors(Cors.AllowAllPolicy);
 app.Run();
+
+void ConfigureDependencies(WebApplicationBuilder builder)
+{
+    OpenWeather.Adapters.Postgres.Config.DbContextConfig.Configure(builder.Services, builder.Configuration);
+    OpenWeather.Domain.Config.DiConfig.Configure(builder.Services);
+}
