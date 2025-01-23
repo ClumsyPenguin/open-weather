@@ -15,6 +15,7 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory(Configu
 
 var app = BuildApp(builder);
 app.Run();
+return;
 
 static void ConfigureDependencies(ContainerBuilder builder)
 {

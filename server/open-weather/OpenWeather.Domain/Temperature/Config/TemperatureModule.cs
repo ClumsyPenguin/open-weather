@@ -10,7 +10,7 @@ namespace OpenWeather.Domain.Temperature.Config
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterTypeWithInterception<TemperatureService,ITemperatureService>(typeof(ICacheInterceptor));          
+            builder.RegisterTypeWithInterception<TemperatureService, ITemperatureService>(typeof(ICacheInterceptor));          
         }        
     }
 }
