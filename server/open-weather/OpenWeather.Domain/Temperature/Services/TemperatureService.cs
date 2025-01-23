@@ -10,7 +10,6 @@ internal class TemperatureService : ITemperatureService
     [Cache(60)]
     public Task<double> GetCurrentTemperatureAsync(GetCurrentTemperatureRequest request, CancellationToken cancellationToken)
     {
-
         return Task.FromResult(21d);
     }
 }

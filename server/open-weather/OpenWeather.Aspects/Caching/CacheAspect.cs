@@ -1,6 +1,5 @@
 ﻿using Castle.DynamicProxy;
 using Microsoft.Extensions.Caching.Hybrid;
-using System.Threading;
 
 namespace OpenWeather.Aspects.Caching
 {
