@@ -1,15 +1,15 @@
-﻿using FluentValidation;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Autofac;
+using OpenWeather.Domain.Temperature.Config;
+using OpenWeather.Domain.Temperature.Validators.Config;
 
 namespace OpenWeather.Domain.Config
 {
     public static class DiConfig
     {
-        public static void Configure(IServiceCollection serviceCollection)
+        public static void Configure(ContainerBuilder builder)
         {
-            Temperature.Config.DiConfig.Configure(serviceCollection);
-
-            serviceCollection.AddValidatorsFromAssembly(AssemblyReference.Assembly, includeInternalTypes: true);
+            builder.RegisterModule(new TemperatureModule());
+            builder.RegisterModule(new ValidatorModule());            
         }
     }
 }
