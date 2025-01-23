@@ -22,15 +22,6 @@ namespace OpenWeather.Core.Extensions
         }
 
         private static IAsyncInterceptor[] ResolveInterceptors(Type[] interceptorTypes, IComponentContext context)
-        {
-            var interceptors = new List<IAsyncInterceptor>();
-
-            foreach (var interceptorType in interceptorTypes)
-            {
-                interceptors.Add((context.Resolve(interceptorType) as IAsyncInterceptor)!);
-            }
-
-            return interceptors.ToArray();
-        }
+            => interceptorTypes.Select(interceptorType => (context.Resolve(interceptorType) as IAsyncInterceptor)!).ToArray();
     }
 }
