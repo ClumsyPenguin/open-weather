@@ -30,6 +30,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OpenWeather.Aspire", "OpenW
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenWeather.Aspects", "OpenWeather.Aspects\OpenWeather.Aspects.csproj", "{1AAE2FE7-8EAD-43BC-81A5-CBEE2E61700B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenWeather.Core", "OpenWeather.Core\OpenWeather.Core.csproj", "{6B695D5E-76BA-4ADC-A82F-4D0EBC5DBBA6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +70,10 @@ Global
 		{1AAE2FE7-8EAD-43BC-81A5-CBEE2E61700B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AAE2FE7-8EAD-43BC-81A5-CBEE2E61700B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AAE2FE7-8EAD-43BC-81A5-CBEE2E61700B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B695D5E-76BA-4ADC-A82F-4D0EBC5DBBA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B695D5E-76BA-4ADC-A82F-4D0EBC5DBBA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B695D5E-76BA-4ADC-A82F-4D0EBC5DBBA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B695D5E-76BA-4ADC-A82F-4D0EBC5DBBA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -19,6 +19,7 @@ app.Run();
 static void ConfigureDependencies(ContainerBuilder builder)
 {
     OpenWeather.Domain.Config.DiConfig.Configure(builder);
+    OpenWeather.Aspects.Config.DiConfig.Configure(builder);
 }
 
 static void ConfigureDatabases(WebApplicationBuilder builder)

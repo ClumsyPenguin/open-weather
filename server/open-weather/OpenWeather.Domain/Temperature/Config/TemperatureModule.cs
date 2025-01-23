@@ -1,7 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using OpenWeather.Domain.Temperature.Services.Ports;
+﻿using OpenWeather.Domain.Temperature.Services.Ports;
 using OpenWeather.Domain.Temperature.Services;
 using Autofac;
+using OpenWeather.Core.Extensions;
+using OpenWeather.Aspects.Caching;
 
 namespace OpenWeather.Domain.Temperature.Config
 {
@@ -9,7 +10,7 @@ namespace OpenWeather.Domain.Temperature.Config
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<TemperatureService>().As<ITemperatureService>();          
+            builder.RegisterTypeWithInterception<TemperatureService,ITemperatureService>(typeof(ICacheInterceptor));          
         }        
     }
 }

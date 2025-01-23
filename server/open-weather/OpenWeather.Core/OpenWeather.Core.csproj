@@ -8,9 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="8.2.0" />
-    <PackageReference Include="Castle.Core" Version="5.1.1" />
+    <PackageReference Include="Autofac.Extras.DynamicProxy" Version="7.1.0" />
     <PackageReference Include="Castle.Core.AsyncInterceptor" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Hybrid" Version="9.1.0-preview.1.25064.3" />
   </ItemGroup>
 
 </Project>

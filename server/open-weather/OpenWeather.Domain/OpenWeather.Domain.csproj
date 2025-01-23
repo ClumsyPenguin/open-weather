@@ -19,6 +19,11 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\OpenWeather.Aspects\OpenWeather.Aspects.csproj" />
+      <ProjectReference Include="..\OpenWeather.Core\OpenWeather.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
       <Reference Include="Microsoft.Extensions.Caching.Abstractions">
         <HintPath>..\..\..\..\..\..\..\usr\local\share\dotnet\shared\Microsoft.AspNetCore.App\9.0.0\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
       </Reference>
