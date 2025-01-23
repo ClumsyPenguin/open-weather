@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace OpenWeather.Aspects.Caching
 {
-    [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Method, Inherited = false)]
     public class CacheAttribute : Attribute
     {
         public CacheAttribute(int itemLifeSpanInMinutes)
@@ -27,13 +27,10 @@ namespace OpenWeather.Aspects.Caching
     public class TieredCacheInterceptor : ICacheInterceptor
     {
         private readonly HybridCache _multiTieredCache;
-        private readonly CacheKeyGenerator _cacheKeyGenerator;
 
-
-        public TieredCacheInterceptor(HybridCache multiTieredCache, CacheKeyGenerator cacheKeyGenerator)
+        public TieredCacheInterceptor(HybridCache multiTieredCache)
         {
             _multiTieredCache = multiTieredCache;
-            _cacheKeyGenerator = cacheKeyGenerator;
         }
 
         public void InterceptSynchronous(IInvocation invocation)
@@ -63,7 +60,7 @@ namespace OpenWeather.Aspects.Caching
         private async Task<TResult> InternalInterceptAsynchronous<TResult>(IInvocation invocation, TimeSpan itemLifeSpan)
         {
             var proceed = invocation.CaptureProceedInfo();
-            var cacheKey = _cacheKeyGenerator.Generate(invocation.Method, invocation.Arguments);
+            var cacheKey = CacheKeyGenerator.Generate(invocation.Method, invocation.Arguments);
             var cancellationToken = (CancellationToken) invocation.Arguments.Single(a => a is CancellationToken);
 
             return (await _multiTieredCache.GetOrCreateAsync(cacheKey,
@@ -103,8 +100,7 @@ namespace OpenWeather.Aspects.Caching
                 Expiration = itemLifeSpan,
                 LocalCacheExpiration = itemLifeSpan
             };
-
-
+            
             return entryOptions;
         }
     }

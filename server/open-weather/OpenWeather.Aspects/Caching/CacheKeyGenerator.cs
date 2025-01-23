@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace OpenWeather.Aspects.Caching
 {
-    public class CacheKeyGenerator
+    public static class CacheKeyGenerator
     {
-        public string Generate(MethodInfo methodInfo, object[] parameterValues)
+        public static string Generate(MethodInfo methodInfo, object[] parameterValues)
         {
             return CreateCacheString(methodInfo, parameterValues);
         }
 
-        private string CreateCacheString(MethodInfo methodInfo, object[] parameterValues)
+        private static string CreateCacheString(MethodInfo methodInfo, object[] parameterValues)
         {
             // This caching will fail if the method is created in a module (as we expect DeclaringType to be non-null)
             // https://stackoverflow.com/questions/35266010/can-propertyinfo-declaringtype-really-ever-be-null
