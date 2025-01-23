@@ -1,51 +1,111 @@
-﻿using Metalama.Extensions.DependencyInjection;
-using Metalama.Framework.Aspects;
-using Metalama.Framework.Code;
+﻿using Castle.DynamicProxy;
 using Microsoft.Extensions.Caching.Hybrid;
 using System.Threading;
 
 namespace OpenWeather.Aspects.Caching
 {
-    public class CacheAttribute : OverrideMethodAspect
+    [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
+    public class CacheAttribute : Attribute
     {
-        [IntroduceDependency]
-        private readonly HybridCache _hybridCache;
-        private readonly int _durationInHours;
-
-        public CacheAttribute(int durationInHours)
+        public CacheAttribute(int itemLifeSpanInMinutes)
         {
-            _durationInHours = durationInHours;
+            ItemLifeSpan = TimeSpan.FromMinutes(itemLifeSpanInMinutes);
         }
 
-        public override dynamic? OverrideMethod()
+        public CacheAttribute(double itemLifeSpanInMinutes)
         {
-          
+            ItemLifeSpan = TimeSpan.FromMinutes(itemLifeSpanInMinutes);
+        }
+
+        public TimeSpan ItemLifeSpan { get; }
+    }
+
+    public interface ICacheInterceptor : IAsyncInterceptor
+    {
+    }
+
+    public class TieredCacheInterceptor : ICacheInterceptor
+    {
+        private readonly HybridCache _multiTieredCache;
+        private readonly CacheKeyGenerator _cacheKeyGenerator;
+
+
+        public TieredCacheInterceptor(HybridCache multiTieredCache, CacheKeyGenerator cacheKeyGenerator)
+        {
+            _multiTieredCache = multiTieredCache;
+            _cacheKeyGenerator = cacheKeyGenerator;
+        }
+
+        public void InterceptSynchronous(IInvocation invocation)
+        {
+            throw new InvalidOperationException("No caching allowed for synchronous methods");
+        }
+
+
+        public void InterceptAsynchronous(IInvocation invocation)
+        {
+            //This method is one which doesn't return a value, hence no caching desired
+            invocation.Proceed();
+        }
+
+        public void InterceptAsynchronous<TResult>(IInvocation invocation)
+        {
+            if (IsCacheable(invocation, out var itemLifeSpan))
+            {
+                invocation.ReturnValue = InternalInterceptAsynchronous<TResult>(invocation, itemLifeSpan);
+            }
+            else
+            {
+                invocation.Proceed();
+            }
+        }
+
+        private async Task<TResult> InternalInterceptAsynchronous<TResult>(IInvocation invocation, TimeSpan itemLifeSpan)
+        {
+            var proceed = invocation.CaptureProceedInfo();
+            var cacheKey = _cacheKeyGenerator.Generate(invocation.Method, invocation.Arguments);
+            var cancellationToken = (CancellationToken) invocation.Arguments.Single(a => a is CancellationToken);
+
+            return (await _multiTieredCache.GetOrCreateAsync(cacheKey,
+                                                          _ => GetNonCachedValueAsync<TResult>(proceed, invocation)!,
+                                                          options: SetCacheEntryOptions(itemLifeSpan),
+                                                          cancellationToken: cancellationToken))!;
+        }
+
+        private static async ValueTask<TResult> GetNonCachedValueAsync<TResult>(IInvocationProceedInfo proceed, IInvocation invocation)
+        {
+            proceed.Invoke();
+
+            var task = (Task<TResult>)invocation.ReturnValue;
+            var result = await task;
+
+            return result;
+        }
+        
+        private static bool IsCacheable(IInvocation invocation, out TimeSpan itemLifeSpan)
+        {
+            if (Attribute.IsDefined(invocation.MethodInvocationTarget, typeof(CacheAttribute)))
+            {
+                var cacheAttribute = Attribute.GetCustomAttribute(invocation.MethodInvocationTarget, typeof(CacheAttribute)) as CacheAttribute;
+                itemLifeSpan = cacheAttribute!.ItemLifeSpan;
+
+                return true;
+            }
+
+            itemLifeSpan = TimeSpan.Zero;
+            return false;
+        }
+
+        private HybridCacheEntryOptions SetCacheEntryOptions(TimeSpan itemLifeSpan)
+        {
             var entryOptions = new HybridCacheEntryOptions
             {
-                Expiration = TimeSpan.FromHours(_durationInHours), 
-                LocalCacheExpiration = TimeSpan.FromHours(_durationInHours),
+                Expiration = itemLifeSpan,
+                LocalCacheExpiration = itemLifeSpan
             };
 
-            CancellationToken cancellationToken = meta.Target.Method.Parameters["cancellationToken"].Value;
 
-            return _hybridCache.GetOrCreateAsync<CacheAttribute, object>(CreateKey(meta.Target.Method),
-                                                (state, cancel) => state.ExecuteMethod(cancellationToken),
-                                                entryOptions,
-                                                cancellationToken: cancellationToken);
-            
-        }
-
-        [RunTime]
-        private async ValueTask<object> ExecuteMethod(CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
-
-        private string CreateKey(IMethod method)
-        {
-            var parameterValues = string.Join('-',method.Parameters.Select(p => p));
-
-            return $"{method.Name}-{parameterValues}";
+            return entryOptions;
         }
     }
 }
