@@ -1,11 +1,12 @@
 using FluentValidation;
-using OpenWeather.Domain.Temperature.Models;
+using OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.DTOs;
 
-namespace OpenWeather.Domain.Temperature.Validators;
+namespace OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.Validators;
 
-public class TemperatureValidator : AbstractValidator<GetCurrentTemperatureRequest>
+public class CoordinatesValidator : AbstractValidator<GetCurrentTemperatureRequest>
 {
-    public TemperatureValidator()
+    //Duplicate from the validator in the domain, it might be worthwhile to make same shared
+    public CoordinatesValidator()
     {
         RuleFor(request => request.Latitude)
             .NotEmpty()
