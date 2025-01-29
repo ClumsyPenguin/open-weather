@@ -3,7 +3,8 @@ var builder = DistributedApplication.CreateBuilder(args);
 var redisCache = builder
     .AddRedis("cache", port: 6379)
     .WithImage("redis/redis-stack")
-    .WithImageTag("latest");
+    .WithImageTag("latest")
+    .WithLifetime(ContainerLifetime.Persistent);
 
 var username = builder.AddParameter("username", secret: true);
 var password = builder.AddParameter("password", secret: true);
@@ -12,17 +13,18 @@ var postgres = builder
     .AddPostgres("postgres", username, password, 5432)
     .WithDataVolume(isReadOnly: false)
     .WithPgWeb()
-    .WithImageTag("latest");
+    .WithImageTag("latest")
+    .WithLifetime(ContainerLifetime.Persistent);
 
 var azurite = builder
     .AddAzureStorage("azurite")
     .RunAsEmulator(
-       /* container =>
+        container =>
             container
                 .WithBlobPort(11000)
                 .WithQueuePort(11001)
                 .WithTablePort(11002)
-                .WithDataVolume()*/);
+                .WithDataVolume());
 
 var openweatherDb = postgres.AddDatabase("openweather");
 
