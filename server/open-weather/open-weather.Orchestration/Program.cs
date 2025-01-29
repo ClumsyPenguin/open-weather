@@ -16,30 +16,30 @@ var postgres = builder
     .WithImageTag("latest")
     .WithLifetime(ContainerLifetime.Persistent);
 
-var azurite = builder
-    .AddAzureStorage("azurite")
-    .RunAsEmulator(
-        container =>
-            container
-                .WithBlobPort(11000)
-                .WithQueuePort(11001)
-                .WithTablePort(11002)
-                .WithDataVolume());
+// var azurite = builder
+//     .AddAzureStorage("azurite")
+//     .RunAsEmulator(
+//         container =>
+//             container
+//                 .WithBlobPort(11000)
+//                 .WithQueuePort(11001)
+//                 .WithTablePort(11002)
+//                 .WithDataVolume());
 
 var openweatherDb = postgres.AddDatabase("openweather");
 
-var loadOpenMeteoDataFunction = builder
-    .AddAzureFunctionsProject<Projects.OpenWeather_Azure_Function_LoadOpenMeteoData>(
-        "openweather-adapters-azure-function-load-open-weather-data")
-    .WithExternalHttpEndpoints()
-    .WithHostStorage(azurite);
+// var loadOpenMeteoDataFunction = builder
+//     .AddAzureFunctionsProject<Projects.OpenWeather_Azure_Function_LoadOpenMeteoData>(
+//         "openweather-adapters-azure-function-load-open-weather-data")
+//     .WithExternalHttpEndpoints()
+//     .WithHostStorage(azurite);
 
-    builder
-        .AddProject<Projects.OpenWeather_Adapters_REST>("openweather-adapters-rest")
-        .WithReference(redisCache)
-        .WithReference(openweatherDb)
-        .WithReference(loadOpenMeteoDataFunction)
-        .WaitFor(loadOpenMeteoDataFunction);
+builder
+    .AddProject<Projects.OpenWeather_Adapters_REST>("openweather-adapters-rest")
+    .WithReference(redisCache)
+    .WithReference(openweatherDb);
+        // .WithReference(loadOpenMeteoDataFunction)
+        // .WaitFor(loadOpenMeteoDataFunction);
 
 
     

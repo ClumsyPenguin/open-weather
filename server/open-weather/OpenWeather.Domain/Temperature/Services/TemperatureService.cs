@@ -19,5 +19,7 @@ internal class TemperatureService(ITemperatureRepository temperatureRepository, 
     {
         var temperatureInDb = await temperatureRepository.GetCurrentTemperatureAsync(longitude, latitude);
         return temperatureInDb ?? await azureFunctionService.GetCurrentTemperatureAsync(longitude, latitude);
+        
+        //TODO persist the result of the azure function call
     }
 }

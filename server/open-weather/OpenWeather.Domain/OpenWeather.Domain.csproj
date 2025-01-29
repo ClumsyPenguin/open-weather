@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\OpenWeather.Aspects\OpenWeather.Aspects.csproj" />
+      <ProjectReference Include="..\OpenWeather.Azure.Function.LoadOpenMeteoData\OpenWeather.Azure.Function.LoadOpenMeteoData.csproj" />
       <ProjectReference Include="..\OpenWeather.Core\OpenWeather.Core.csproj" />
     </ItemGroup>
 

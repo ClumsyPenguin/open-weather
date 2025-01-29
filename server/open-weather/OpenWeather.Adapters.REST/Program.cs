@@ -27,7 +27,7 @@ static void ConfigureDependencies(ContainerBuilder builder)
 
 static void ConfigureDatabases(WebApplicationBuilder builder)
 {
-    OpenWeather.Adapters.Postgres.Config.DbContextConfig.Configure(builder.Services, builder.Configuration);
+    DbContextConfig.Configure(builder.Services, builder.Configuration);
 }
 
 static void ConfigureCrossCuttingInfra(WebApplicationBuilder builder)
