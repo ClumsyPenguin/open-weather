@@ -1,5 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using OpenWeather.Adapters.Postgres.Config;
 using OpenWeather.Adapters.REST.Configuration;
 using OpenWeather.Adapters.REST.Temperature;
 using Scalar.AspNetCore;
@@ -21,6 +22,7 @@ static void ConfigureDependencies(ContainerBuilder builder)
 {
     OpenWeather.Domain.Config.DiConfig.Configure(builder);
     OpenWeather.Aspects.Config.DiConfig.Configure(builder);
+    OpenWeather.Adapters.Postgres.Config.DiConfig.Configure(builder);
 }
 
 static void ConfigureDatabases(WebApplicationBuilder builder)
@@ -58,5 +60,7 @@ if (app.Environment.IsDevelopment())
     app.UseHttpsRedirection();
     app.MapTemperatureEndpoints();
     app.UseCors(Cors.AllowAllPolicy);
+    app.CreateDbIfNotExists();
+    
     return app;
 }
