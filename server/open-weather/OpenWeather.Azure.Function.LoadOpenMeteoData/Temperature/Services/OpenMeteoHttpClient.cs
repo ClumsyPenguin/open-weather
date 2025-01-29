@@ -5,7 +5,7 @@ namespace OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.Services;
 
 public interface IOpenMeteoService
 {
-    public Task<GetCurrentTemperatureDTO> GetCurrentTemperature(double latitude, double longitude);
+    public Task<GetCurrentTemperatureDTO> GetCurrentTemperature(GetCurrentTemperatureRequest request);
 }
 
 internal class OpenMeteoHttpClient: IOpenMeteoService
@@ -18,6 +18,6 @@ internal class OpenMeteoHttpClient: IOpenMeteoService
         _httpClient.BaseAddress = new Uri(Constants.OpenMeteoForecastApiBaseUrl);
     }
 
-    public async Task<GetCurrentTemperatureDTO> GetCurrentTemperature(double latitude, double longitude) 
-        => await _httpClient.GetFromJsonAsync<GetCurrentTemperatureDTO>($"?latitude={latitude}&longitude={longitude}&current=temperature") ?? new GetCurrentTemperatureDTO();
+    public async Task<GetCurrentTemperatureDTO> GetCurrentTemperature(GetCurrentTemperatureRequest request) 
+        => await _httpClient.GetFromJsonAsync<GetCurrentTemperatureDTO>($"?latitude={request.Latitude}&longitude={request.Longitude}&current=temperature") ?? new GetCurrentTemperatureDTO();
 }

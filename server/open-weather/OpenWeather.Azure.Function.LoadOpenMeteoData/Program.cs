@@ -1,3 +1,4 @@
+using FluentValidation;
 using Microsoft.Azure.Functions.Worker.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -15,6 +16,8 @@ builder.Services.AddHttpClient<IOpenMeteoService, OpenMeteoHttpClient>()
             PooledConnectionLifetime = TimeSpan.FromMinutes(15)
         })
     .SetHandlerLifetime(Timeout.InfiniteTimeSpan);
+
+builder.Services.AddValidatorsFromAssembly(AssemblyReference.Assembly, includeInternalTypes: true);
 
 builder.ConfigureFunctionsWebApplication();
 

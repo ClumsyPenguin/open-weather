@@ -33,6 +33,7 @@ static void ConfigureCrossCuttingInfra(WebApplicationBuilder builder)
     builder.Services.AddOpenApi();
     builder.Services.ConfigureCors();
     builder.Services.ConfigureCaching(builder.Configuration);
+    builder.Services.ConfigureHttpClients();
 }
 
 static WebApplication BuildApp(WebApplicationBuilder builder)
@@ -41,18 +42,18 @@ static WebApplication BuildApp(WebApplicationBuilder builder)
 
     app.MapDefaultEndpoints();
 
-    if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+    app.MapScalarApiReference(options =>
     {
-        app.MapOpenApi();
-        app.MapScalarApiReference(options =>
-        {
-            options
-                .WithTitle("OpenWeather API")
-                .WithDarkModeToggle(true)
-                .WithDefaultHttpClient(ScalarTarget.Http, ScalarClient.HttpClient)
-                .WithTheme(ScalarTheme.Moon);
-        });
-    }
+        options
+            .WithTitle("OpenWeather API")
+            .WithDarkModeToggle(true)
+            .WithDefaultHttpClient(ScalarTarget.Http, ScalarClient.HttpClient)
+            .WithTheme(ScalarTheme.Moon);
+    });
+}
 
     app.UseHttpsRedirection();
     app.MapTemperatureEndpoints();

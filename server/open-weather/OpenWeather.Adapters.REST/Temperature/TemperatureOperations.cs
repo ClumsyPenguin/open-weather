@@ -8,7 +8,7 @@ namespace OpenWeather.Adapters.REST.Temperature;
 
 public static class TemperatureOperations
 {
-    public static async Task<Results<Ok<double>, ValidationProblem>> GetCurrentTemperature(
+    public static async Task<Results<Ok<CurrentTemperature>, ValidationProblem>> GetCurrentTemperature(
         [FromQuery(Name = "long")] double longitude, 
         [FromQuery(Name = "lat")] double latitude,
         ITemperatureService temperatureService,
