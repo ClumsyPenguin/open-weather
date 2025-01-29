@@ -7,13 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Autofac" Version="8.2.0" />
-      <PackageReference Include="FluentValidation" Version="11.11.0" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.1" />
-      <PackageReference Include="Vogen" Version="6.0.0" />
-    </ItemGroup>
-
-    <ItemGroup>
       <Folder Include="Temperature\Services\" />
     </ItemGroup>
 
@@ -23,9 +16,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Reference Include="Microsoft.Extensions.Caching.Abstractions">
-        <HintPath>..\..\..\..\..\..\..\usr\local\share\dotnet\shared\Microsoft.AspNetCore.App\9.0.0\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
-      </Reference>
+        <PackageReference Include="Autofac" Version="8.2.0" />
+        <PackageReference Include="FluentValidation" Version="11.11.0" />
+        <PackageReference Include="Microsoft.Extensions.Caching.Hybrid" Version="9.1.0-preview.1.25064.3" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.1" />
+        <PackageReference Include="Vogen" Version="6.0.0" />
+        <Reference Include="Microsoft.Extensions.Caching.Abstractions">
+            <HintPath>..\..\..\..\..\..\..\usr\local\share\dotnet\shared\Microsoft.AspNetCore.App\9.0.0\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
+        </Reference>
     </ItemGroup>
-
 </Project>
