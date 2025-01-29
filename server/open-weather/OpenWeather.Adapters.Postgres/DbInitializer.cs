@@ -1,10 +1,12 @@
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using OpenWeather.Adapters.Postgres.Models;
 
 namespace OpenWeather.Adapters.Postgres;
 
 internal static class DbInitializer
 {
-    public static void Initialize(OpenWeatherDbContext context)
+    internal static void Initialize(OpenWeatherDbContext context)
     {
         var databaseIsCreated = context.Database.EnsureCreated();
 

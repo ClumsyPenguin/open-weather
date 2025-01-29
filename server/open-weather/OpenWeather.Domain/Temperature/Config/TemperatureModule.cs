@@ -6,7 +6,7 @@ using OpenWeather.Aspects.Caching;
 
 namespace OpenWeather.Domain.Temperature.Config
 {
-    internal class TemperatureModule:Module
+    internal class TemperatureModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {

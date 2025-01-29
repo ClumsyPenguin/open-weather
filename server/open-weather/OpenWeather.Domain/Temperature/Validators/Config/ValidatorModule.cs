@@ -8,7 +8,7 @@ namespace OpenWeather.Domain.Temperature.Validators.Config
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<TemperatureValidator>().As<IValidator<GetCurrentTemperatureRequest>>();
+            builder.RegisterType<CoordinatesValidator>().As<IValidator<GetCurrentTemperatureRequest>>();
         }
     }
 }
