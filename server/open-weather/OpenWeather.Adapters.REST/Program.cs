@@ -1,9 +1,10 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using OpenWeather.Adapters.Postgres.Config;
 using OpenWeather.Adapters.REST.Configuration;
 using OpenWeather.Adapters.REST.Temperature;
+using OpenWeather.Core.Extensions;
 using Scalar.AspNetCore;
+using OpenWeather.Adapters.Postgres.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +28,7 @@ static void ConfigureDependencies(ContainerBuilder builder)
 
 static void ConfigureDatabases(WebApplicationBuilder builder)
 {
-    DbContextConfig.Configure(builder.Services, builder.Configuration);
+    OpenWeather.Adapters.Postgres.Config.DbContextConfig.Configure(builder.Services, builder.Configuration);
 }
 
 static void ConfigureCrossCuttingInfra(WebApplicationBuilder builder)
@@ -59,7 +60,7 @@ if (app.Environment.IsDevelopment())
 
     app.UseHttpsRedirection();
     app.MapTemperatureEndpoints();
-    app.UseCors(Cors.AllowAllPolicy);
+    app.UseCors("AllowAll");
     app.CreateDbIfNotExists();
     
     return app;
