@@ -23,6 +23,7 @@ static void ConfigureDependencies(ContainerBuilder builder)
     OpenWeather.Domain.Config.DiConfig.Configure(builder);
     OpenWeather.Aspects.Config.DiConfig.Configure(builder);
     OpenWeather.Adapters.Postgres.Config.DiConfig.Configure(builder);
+    OpenWeather.Azure.Function.LoadOpenMeteoData.Config.DiConfig.Configure(builder);
 }
 
 static void ConfigureDatabases(WebApplicationBuilder builder)

@@ -1,13 +1,14 @@
 using System.Net.Http.Json;
 using OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.DTOs;
-using OpenWeather.Domain.Temperature.Models;
+using OpenWeather.Domain.Temperature.Ports;
+using OpenWeather.Shared.Temperature.Models;
 
 namespace OpenWeather.Domain.Temperature.Services.Clients;
 
-public class AzureFunctionHttpClient : IAzureFunctionService
+public class AzureFunctionTemperatureService : IAzureFunctionTemperatureService
 {
     private readonly HttpClient _httpClient;
-    public AzureFunctionHttpClient(HttpClient httpClient)
+    public AzureFunctionTemperatureService(HttpClient httpClient)
     {
         _httpClient = httpClient;
         _httpClient.BaseAddress = new Uri("http://localhost:7062/api/");

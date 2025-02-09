@@ -27,6 +27,7 @@
     <ItemGroup>
       <ProjectReference Include="..\open-weather.ServiceDefaults\open-weather.ServiceDefaults.csproj" />
       <ProjectReference Include="..\OpenWeather.Adapters.Postgres\OpenWeather.Adapters.Postgres.csproj" />
+      <ProjectReference Include="..\OpenWeather.Azure.Function.LoadOpenMeteoData\OpenWeather.Azure.Function.LoadOpenMeteoData.csproj" />
       <ProjectReference Include="..\OpenWeather.Domain\OpenWeather.Domain.csproj" />
     </ItemGroup>
 

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using OpenWeather.Domain.Temperature.Models;
 using OpenWeather.Domain.Temperature.Services.Ports;
+using OpenWeather.Shared.Temperature.Models;
 
 namespace OpenWeather.Adapters.REST.Temperature;
 

@@ -1,4 +1,4 @@
-namespace OpenWeather.Domain.Temperature.Models;
+namespace OpenWeather.Shared.Temperature.Models;
 
 public class CurrentTemperature
 {

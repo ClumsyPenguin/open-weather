@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using OpenWeather.Domain.Temperature.Models;
 using OpenWeather.Domain.Temperature.Ports;
+using OpenWeather.Shared.Temperature.Models;
 
 namespace OpenWeather.Adapters.Postgres.Repositories;
 

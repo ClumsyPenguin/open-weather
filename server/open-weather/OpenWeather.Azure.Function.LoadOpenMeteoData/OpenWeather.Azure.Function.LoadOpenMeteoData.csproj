@@ -33,4 +33,8 @@
     <ItemGroup>
         <Using Include="System.Threading.ExecutionContext" Alias="ExecutionContext" />
     </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\OpenWeather.Domain\OpenWeather.Domain.csproj" />
+      <ProjectReference Include="..\OpenWeather.Shared\OpenWeather.Shared.csproj" />
+    </ItemGroup>
 </Project>
