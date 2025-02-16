@@ -11,7 +11,6 @@
         <FrameworkReference Include="Microsoft.AspNetCore.App" />
         <PackageReference Include="Autofac" Version="8.2.0" />
         <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
-        <PackageReference Include="Autofac.Extensions.DependencyInjection.AzureFunctions" Version="7.2.0.92" />
         <PackageReference Include="FluentValidation" Version="11.11.0" />
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
         <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />

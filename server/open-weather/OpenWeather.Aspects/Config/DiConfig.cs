@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Castle.DynamicProxy;
 using OpenWeather.Aspects.Caching;
+using OpenWeather.Aspects.Resiliency;
 
 namespace OpenWeather.Aspects.Config
 {
@@ -10,6 +11,7 @@ namespace OpenWeather.Aspects.Config
         {
             builder.RegisterType<ProxyGenerator>().AsSelf();
             builder.RegisterType<TieredCacheInterceptor>().As<ICacheInterceptor>();
+            builder.RegisterType<ResiliencyInterceptor>().As<IResiliencyInterceptor>();
         }
     }
 }

@@ -8,11 +8,11 @@ public interface IOpenMeteoClient
     public Task<GetCurrentTemperatureDTO> GetCurrentTemperature(GetCurrentTemperatureRequest request);
 }
 
-internal class OpenMeteoHttpClient: IOpenMeteoClient
+internal class OpenMeteoClient: IOpenMeteoClient
 {
     private readonly HttpClient _httpClient;
 
-    public OpenMeteoHttpClient(HttpClient httpClient)
+    public OpenMeteoClient(HttpClient httpClient)
     {
         _httpClient = httpClient;
         _httpClient.BaseAddress = new Uri(Constants.OpenMeteoForecastApiBaseUrl);

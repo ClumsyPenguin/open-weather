@@ -11,11 +11,15 @@ namespace OpenWeather.Aspects.Resiliency
         }
     }
 
-    public class ResiliencyAspect : IAsyncInterceptor
+    public interface IResiliencyInterceptor : IAsyncInterceptor
+    {
+    }
+
+    public class ResiliencyInterceptor : IResiliencyInterceptor
     {
         private readonly ResiliencePipelineProvider<string> _pipeLineprovider;
 
-        public ResiliencyAspect(ResiliencePipelineProvider<string> pipeLineprovider)
+        public ResiliencyInterceptor(ResiliencePipelineProvider<string> pipeLineprovider)
         {
             _pipeLineprovider = pipeLineprovider;
         }
