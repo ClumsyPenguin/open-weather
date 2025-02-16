@@ -1,14 +1,19 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using FluentValidation;
 using Microsoft.Azure.Functions.Worker.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
 using OpenWeather.Azure.Function.LoadOpenMeteoData;
 using OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.Services;
+using OpenWeather.Core.Extensions;
 
 var builder = FunctionsApplication.CreateBuilder(args);
-builder.Services.AddTransient<DefaultStatusCodeHandler>();
 
-builder.Services.AddHttpClient<IOpenMeteoService, OpenMeteoHttpClient>()
+builder.ConfigureContainer<ContainerBuilder>(containerBuilder); 
+builder.Services.AddAutofacServiceProvider();
+builder.Services.AddHttpClient<IOpenMeteoClient, OpenMeteoHttpClient>()
     .AddHttpMessageHandler<DefaultStatusCodeHandler>()
     .ConfigurePrimaryHttpMessageHandler(
         () => new SocketsHttpHandler
@@ -18,6 +23,8 @@ builder.Services.AddHttpClient<IOpenMeteoService, OpenMeteoHttpClient>()
     .SetHandlerLifetime(Timeout.InfiniteTimeSpan);
 
 builder.Services.AddValidatorsFromAssembly(AssemblyReference.Assembly, includeInternalTypes: true);
+builder.Services.ConfigureResiliency();
+
 
 builder.ConfigureFunctionsWebApplication();
 
@@ -27,3 +34,11 @@ builder.ConfigureFunctionsWebApplication();
 //     .ConfigureFunctionsApplicationInsights();
 
 builder.Build().Run();
+
+static void ConfigureDependencies(ContainerBuilder builder)
+{
+    OpenWeather.Aspects.Config.DiConfig.Configure(builder);
+
+    builder.RegisterTypeWithInterception<>
+    builder.RegisterType<DefaultStatusCodeHandler>().AsSelf();
+}

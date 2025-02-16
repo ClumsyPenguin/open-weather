@@ -3,12 +3,12 @@ using OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.DTOs;
 
 namespace OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.Services;
 
-public interface IOpenMeteoService
+public interface IOpenMeteoClient
 {
     public Task<GetCurrentTemperatureDTO> GetCurrentTemperature(GetCurrentTemperatureRequest request);
 }
 
-internal class OpenMeteoHttpClient: IOpenMeteoService
+internal class OpenMeteoHttpClient: IOpenMeteoClient
 {
     private readonly HttpClient _httpClient;
 
