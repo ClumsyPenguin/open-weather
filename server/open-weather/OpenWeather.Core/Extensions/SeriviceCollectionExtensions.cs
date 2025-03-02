@@ -61,7 +61,7 @@ namespace OpenWeather.Core.Extensions
         #region Resiliency
         public static IServiceCollection ConfigureResiliency(this IServiceCollection services)
         {
-            services.AddResiliencePipeline<string>("Client-pipeline", builder =>
+            services.AddResiliencePipeline("Client-pipeline", builder =>
             {
                 builder
                     .AddRetry(new RetryStrategyOptions
@@ -88,6 +88,7 @@ namespace OpenWeather.Core.Extensions
         {
             return e.StatusCode switch
             {
+                HttpStatusCode.BadRequest => true,
                 HttpStatusCode.GatewayTimeout => true,
                 HttpStatusCode.TooManyRequests => true,
                 _ => false

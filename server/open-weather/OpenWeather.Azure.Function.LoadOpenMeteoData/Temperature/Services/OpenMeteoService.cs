@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.DTOs;
 
 namespace OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.Services
 {
-    internal class OpenMeteoService
+    public interface IOpenMeteoService
     {
+        Task<GetCurrentTemperatureDTO> GetCurrentTemperature(GetCurrentTemperatureRequest request);
+    }
+
+    internal class OpenMeteoService(IOpenMeteoClient openMeteoClient) : IOpenMeteoService
+    {
+        public async Task<GetCurrentTemperatureDTO> GetCurrentTemperature(GetCurrentTemperatureRequest request)
+        {
+            var x =  await openMeteoClient.GetCurrentTemperature(request);
+
+            return x;
+        }
     }
 }

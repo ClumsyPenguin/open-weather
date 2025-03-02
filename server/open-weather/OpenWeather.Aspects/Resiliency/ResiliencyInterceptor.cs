@@ -53,19 +53,21 @@ namespace OpenWeather.Aspects.Resiliency
             throw new InvalidOperationException("No resiliency is possible on synchronous methods");
         }
 
-        private ValueTask<TResult> ExecuteAsResilient<TResult>(IInvocation invocation)
+        private async Task<TResult> ExecuteAsResilient<TResult>(IInvocation invocation)
         {
             var pipeline = _pipeLineprovider.GetPipeline("Client-pipeline");
 
-            return pipeline.ExecuteAsync<TResult>(async token =>
+            var x = await pipeline.ExecuteAsync(async token =>
             {
                 invocation.Proceed();
 
-                var task = (ValueTask<TResult>)invocation.ReturnValue;
+                var task = (Task<TResult>)invocation.ReturnValue;
                 var result = await task;
 
                 return result;
             });
+
+            return x;
         }
 
         private ValueTask ExecuteAsResilient(IInvocation invocation)
@@ -76,7 +78,7 @@ namespace OpenWeather.Aspects.Resiliency
             {
                 invocation.Proceed();
 
-                return (ValueTask)invocation.ReturnValue;
+                return (ValueTask)invocation.ReturnValue; //TODO fix this  
             });
         }
 
@@ -84,8 +86,6 @@ namespace OpenWeather.Aspects.Resiliency
         {
             if (Attribute.IsDefined(invocation.MethodInvocationTarget, typeof(ResilientAttribute)))
             {
-                //var cacheAttribute = Attribute.GetCustomAttribute(invocation.MethodInvocationTarget, typeof(ResiliencyAttribute)) as ResiliencyAttribute;
-
                 return true;
             }
 

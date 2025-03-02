@@ -1,4 +1,5 @@
 using System.Net.Http.Json;
+using OpenWeather.Aspects.Resiliency;
 using OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.DTOs;
 
 namespace OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.Services;
@@ -18,6 +19,11 @@ internal class OpenMeteoClient: IOpenMeteoClient
         _httpClient.BaseAddress = new Uri(Constants.OpenMeteoForecastApiBaseUrl);
     }
 
-    public async Task<GetCurrentTemperatureDTO> GetCurrentTemperature(GetCurrentTemperatureRequest request) 
-        => await _httpClient.GetFromJsonAsync<GetCurrentTemperatureDTO>($"?latitude={request.Latitude}&longitude={request.Longitude}&current=temperature") ?? new GetCurrentTemperatureDTO();
+    [Resilient]
+    public async Task<GetCurrentTemperatureDTO> GetCurrentTemperature(GetCurrentTemperatureRequest request)
+    {
+        var x = await _httpClient.GetFromJsonAsync<GetCurrentTemperatureDTO>($"?latitude={request.Latitude}&longitude={request.Longitude}&current=temperature") ?? new GetCurrentTemperatureDTO();
+
+        return x;
+    }
 }

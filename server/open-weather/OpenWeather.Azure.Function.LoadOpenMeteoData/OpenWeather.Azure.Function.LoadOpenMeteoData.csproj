@@ -9,6 +9,13 @@
     </PropertyGroup>
     <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App" />
+        <None Include="host.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="local.settings.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+          <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </None>
         <PackageReference Include="Autofac" Version="8.2.0" />
         <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
         <PackageReference Include="FluentValidation" Version="11.11.0" />
@@ -32,15 +39,9 @@
       <ProjectReference Include="..\OpenWeather.Core\OpenWeather.Core.csproj" />
     </ItemGroup>
     <ItemGroup>
-        <None Update="Config\host.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Update="Config\local.settings.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-        </None>
+        <Using Include="System.Threading.ExecutionContext" Alias="ExecutionContext" />
     </ItemGroup>
     <ItemGroup>
-        <Using Include="System.Threading.ExecutionContext" Alias="ExecutionContext" />
+      <Folder Include="Config\" />
     </ItemGroup>
 </Project>
