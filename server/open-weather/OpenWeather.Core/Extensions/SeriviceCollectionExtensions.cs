@@ -77,7 +77,7 @@ namespace OpenWeather.Core.Extensions
                         FailureRatio = 0.75,
                         MinimumThroughput = 4,
                         SamplingDuration = TimeSpan.FromSeconds(10),
-                        ShouldHandle = new PredicateBuilder().Handle<ClientException>(e => !IsTransient(e))
+                        ShouldHandle = new PredicateBuilder().Handle<ClientException>()
                     })
                     .AddTimeout(TimeSpan.FromSeconds(10));
             });
