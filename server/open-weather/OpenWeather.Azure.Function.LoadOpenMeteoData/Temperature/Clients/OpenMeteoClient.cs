@@ -1,6 +1,9 @@
+using System.Net;
 using System.Net.Http.Json;
 using OpenWeather.Aspects.Resiliency;
 using OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.DTOs;
+using OpenWeather.Core;
+using OpenWeather.Core.Exceptions;
 
 namespace OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.Services;
 
@@ -22,8 +25,9 @@ internal class OpenMeteoClient: IOpenMeteoClient
     [Resilient]
     public async Task<GetCurrentTemperatureDTO> GetCurrentTemperature(GetCurrentTemperatureRequest request)
     {
-        var x = await _httpClient.GetFromJsonAsync<GetCurrentTemperatureDTO>($"?latitude={request.Latitude}&longitude={request.Longitude}&current=temperature") ?? new GetCurrentTemperatureDTO();
+        var x = await _httpClient.GetAsync($"?latitude={request.Latitude}&longitude={request.Longitude}&current=temperature");
+        //The tojson gave problems
 
-        return x;
+        return new GetCurrentTemperatureDTO();
     }
 }

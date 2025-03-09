@@ -75,6 +75,8 @@ namespace OpenWeather.Core.Extensions
                     {
                         BreakDuration = TimeSpan.FromMinutes(5),
                         FailureRatio = 0.75,
+                        MinimumThroughput = 4,
+                        SamplingDuration = TimeSpan.FromSeconds(10),
                         ShouldHandle = new PredicateBuilder().Handle<ClientException>(e => !IsTransient(e))
                     })
                     .AddTimeout(TimeSpan.FromSeconds(10));
@@ -88,7 +90,6 @@ namespace OpenWeather.Core.Extensions
         {
             return e.StatusCode switch
             {
-                HttpStatusCode.BadRequest => true,
                 HttpStatusCode.GatewayTimeout => true,
                 HttpStatusCode.TooManyRequests => true,
                 _ => false

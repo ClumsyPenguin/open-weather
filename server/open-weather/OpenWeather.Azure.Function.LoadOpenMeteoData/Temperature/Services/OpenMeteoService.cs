@@ -1,4 +1,5 @@
 ﻿using OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.DTOs;
+using Polly.CircuitBreaker;
 
 namespace OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.Services
 {
@@ -9,11 +10,10 @@ namespace OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.Services
 
     internal class OpenMeteoService(IOpenMeteoClient openMeteoClient) : IOpenMeteoService
     {
-        public async Task<GetCurrentTemperatureDTO> GetCurrentTemperature(GetCurrentTemperatureRequest request)
+        public Task<GetCurrentTemperatureDTO> GetCurrentTemperature(GetCurrentTemperatureRequest request)
         {
-            var x =  await openMeteoClient.GetCurrentTemperature(request);
-
-            return x;
+            return openMeteoClient.GetCurrentTemperature(request);
+           
         }
     }
 }

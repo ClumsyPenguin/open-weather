@@ -57,28 +57,23 @@ namespace OpenWeather.Aspects.Resiliency
         {
             var pipeline = _pipeLineprovider.GetPipeline("Client-pipeline");
 
-            var x = await pipeline.ExecuteAsync(async token =>
+            return await pipeline.ExecuteAsync(async token =>
             {
-                invocation.Proceed();
+                var task = (Task<TResult>)invocation.MethodInvocationTarget.Invoke(invocation.InvocationTarget, invocation.Arguments);
 
-                var task = (Task<TResult>)invocation.ReturnValue;
-                var result = await task;
-
-                return result;
+                return await task;
             });
-
-            return x;
         }
 
-        private ValueTask ExecuteAsResilient(IInvocation invocation)
+        private async Task ExecuteAsResilient(IInvocation invocation)
         {
             var pipeline = _pipeLineprovider.GetPipeline("Client-pipeline");
 
-            return pipeline.ExecuteAsync(token =>
+            await pipeline.ExecuteAsync(async token =>
             {
-                invocation.Proceed();
+                var task = (Task)invocation.MethodInvocationTarget.Invoke(invocation.InvocationTarget, invocation.Arguments);
 
-                return (ValueTask)invocation.ReturnValue; //TODO fix this  
+                await task;
             });
         }
 

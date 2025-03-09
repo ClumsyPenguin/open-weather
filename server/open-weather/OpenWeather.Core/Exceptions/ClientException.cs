@@ -3,7 +3,7 @@
 namespace OpenWeather.Core.Exceptions
 {
     [Serializable]
-    internal class ClientException : Exception
+    public class ClientException : Exception
     {
         public HttpStatusCode StatusCode { get; set; }
         public ClientException(HttpStatusCode statusCode)
