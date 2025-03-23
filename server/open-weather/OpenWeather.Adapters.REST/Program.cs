@@ -12,10 +12,12 @@ builder.AddServiceDefaults();
 
 ConfigureCrossCuttingInfra(builder);
 ConfigureDatabases(builder);
+builder.WebHost.ConfigureSentry();
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory(ConfigureDependencies));
 
 var app = BuildApp(builder);
+
 app.Run();
 return;
 
@@ -37,6 +39,7 @@ static void ConfigureCrossCuttingInfra(WebApplicationBuilder builder)
     builder.Services.ConfigureCors();
     builder.Services.ConfigureCaching(builder.Configuration);
     builder.Services.ConfigureHttpClients();
+    builder.Services.ConfigureOpenTelemetry();
 }
 
 static WebApplication BuildApp(WebApplicationBuilder builder)

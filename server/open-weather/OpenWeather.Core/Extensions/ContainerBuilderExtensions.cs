@@ -6,8 +6,9 @@ namespace OpenWeather.Core.Extensions
 {
     public static class ContainerBuilderExtensions
     {
-        public static IRegistrationBuilder<TU, SimpleActivatorData, SingleRegistrationStyle> RegisterTypeWithInterception<T, TU>(this ContainerBuilder builder, params Type[] interceptorTypes) where T : class, TU
-                                                                                                                                                                                                where TU : class
+        public static IRegistrationBuilder<TU, SimpleActivatorData, SingleRegistrationStyle> RegisterTypeWithInterception<T, TU>(this ContainerBuilder builder, params Type[] interceptorTypes) 
+            where T : class, TU
+            where TU : class
         {
             builder.RegisterType<T>()
                    .AsSelf();
