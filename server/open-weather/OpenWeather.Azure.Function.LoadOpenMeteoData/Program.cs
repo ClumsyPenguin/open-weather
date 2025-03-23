@@ -5,6 +5,7 @@ using Microsoft.Azure.Functions.Worker.Builder;
 using Microsoft.Azure.Functions.Worker.OpenTelemetry;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OpenTelemetry.Trace;
 using OpenWeather.Aspects.Resiliency;
 using OpenWeather.Azure.Function.LoadOpenMeteoData;
 using OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.Services;
@@ -37,7 +38,13 @@ builder.Services.ConfigureResiliency();
 
 
 builder.Services
-    .AddOpenTelemetry()
+    .AddOpenTelemetry() 
+    .WithTracing(tracingBuilder =>
+    {
+        tracingBuilder
+            .AddHttpClientInstrumentation()
+            .AddSentry();
+    })
     .UseFunctionsWorkerDefaults();
 
 builder
