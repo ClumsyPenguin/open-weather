@@ -3,6 +3,7 @@ using Autofac.Extensions.DependencyInjection;
 using OpenWeather.Adapters.Postgres.Config;
 using OpenWeather.Adapters.REST.Configuration;
 using OpenWeather.Adapters.REST.Temperature;
+using OpenWeather.Core.Extensions;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -59,7 +60,7 @@ if (app.Environment.IsDevelopment())
 
     app.UseHttpsRedirection();
     app.MapTemperatureEndpoints();
-    app.UseCors(Cors.AllowAllPolicy);
+    app.UseCors("AllowAll");
     app.CreateDbIfNotExists();
     
     return app;

@@ -12,7 +12,7 @@ using OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.Validators;
 namespace OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.Controllers;
 
 public class TemperatureController(ILogger<TemperatureController> logger, IOpenMeteoService openMeteoService, CoordinatesValidator validation)
-{
+{  
     private readonly ILogger<TemperatureController> _logger = logger;
     
     [Function(nameof(GetCurrentTemperature))]
