@@ -25,4 +25,9 @@ public class TemperatureRepository(OpenWeatherDbContext dbContext) : ITemperatur
             TimeStamp = temperatureEntity.TimeStamp
         };
     }
+
+    public Task SaveCurrentTemperature(double latitude, double longitude, double temperature)
+    {
+        throw new NotImplementedException();
+    }
 }

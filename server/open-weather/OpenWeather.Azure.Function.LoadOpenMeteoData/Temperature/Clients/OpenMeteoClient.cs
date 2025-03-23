@@ -1,13 +1,9 @@
-using System.Net;
-using System.Net.Http.Json;
 using OpenWeather.Aspects.Resiliency;
 using OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.DTOs;
-using OpenWeather.Core;
-using OpenWeather.Core.Exceptions;
 
-namespace OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.Services;
+namespace OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.Clients;
 
-public interface IOpenMeteoClient
+internal interface IOpenMeteoClient
 {
     public Task<GetCurrentTemperatureDTO> GetCurrentTemperature(GetCurrentTemperatureRequest request);
 }

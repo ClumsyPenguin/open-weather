@@ -1,9 +1,10 @@
-﻿using OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.DTOs;
+﻿using OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.Clients;
+using OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.DTOs;
 using Polly.CircuitBreaker;
 
 namespace OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.Services
 {
-    public interface IOpenMeteoService
+    internal interface IOpenMeteoService
     {
         Task<GetCurrentTemperatureDTO> GetCurrentTemperature(GetCurrentTemperatureRequest request);
     }

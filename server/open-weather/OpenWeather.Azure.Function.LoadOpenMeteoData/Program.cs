@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using OpenTelemetry.Trace;
 using OpenWeather.Aspects.Resiliency;
 using OpenWeather.Azure.Function.LoadOpenMeteoData;
+using OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.Clients;
 using OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.Services;
 using Sentry.Azure.Functions.Worker;
 using Sentry.OpenTelemetry;
@@ -29,8 +30,6 @@ builder.ConfigureContainer(new AutofacServiceProviderFactory(ConfigureDependenci
         })
     .SetHandlerLifetime(Timeout.InfiniteTimeSpan)
  */
-
-
 
 builder.Services.AddHttpClient();
 builder.Services.AddValidatorsFromAssembly(AssemblyReference.Assembly, includeInternalTypes: true);
