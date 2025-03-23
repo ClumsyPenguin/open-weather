@@ -2,14 +2,19 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using FluentValidation;
 using Microsoft.Azure.Functions.Worker.Builder;
+using Microsoft.Azure.Functions.Worker.OpenTelemetry;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OpenWeather.Aspects.Resiliency;
 using OpenWeather.Azure.Function.LoadOpenMeteoData;
 using OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.Services;
+using Sentry.Azure.Functions.Worker;
+using Sentry.OpenTelemetry;
 using OpenWeather.Core.Extensions;
 
 var builder = FunctionsApplication.CreateBuilder(args);
+
+builder.Services.AddTransient<DefaultStatusCodeHandler>();
 
 builder.ConfigureContainer(new AutofacServiceProviderFactory(ConfigureDependencies));
 
@@ -31,12 +36,19 @@ builder.Services.AddValidatorsFromAssembly(AssemblyReference.Assembly, includeIn
 builder.Services.ConfigureResiliency();
 
 
-builder.ConfigureFunctionsWebApplication();
+builder.Services
+    .AddOpenTelemetry()
+    .UseFunctionsWorkerDefaults();
 
-// Application Insights isn't enabled by default. See https://aka.ms/AAt8mw4.
-// builder.Services
-//     .AddApplicationInsightsTelemetryWorkerService()
-//     .ConfigureFunctionsApplicationInsights();
+builder
+    .ConfigureFunctionsWebApplication()
+    .UseSentry(options =>
+    {
+        options.Dsn = "http://8e445484ee02564310f90ba8bf3300bb@100.107.209.63:9000/3";
+        options.Debug = true;
+        options.TracesSampleRate = 1.0;
+        options.UseOpenTelemetry();
+    });
 
 var host = builder.Build();
 host.Run();
