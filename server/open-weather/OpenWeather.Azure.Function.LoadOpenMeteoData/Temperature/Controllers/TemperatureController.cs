@@ -11,7 +11,10 @@ using OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.Validators;
 
 namespace OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.Controllers;
 
-public class TemperatureController(ILogger<TemperatureController> logger, IOpenMeteoService openMeteoService, CoordinatesValidator validation)
+internal class TemperatureController(
+    ILogger<TemperatureController> logger, 
+    IOpenMeteoService openMeteoService,
+    CoordinatesValidator validation)
 {  
     private readonly ILogger<TemperatureController> _logger = logger;
     
@@ -33,6 +36,7 @@ public class TemperatureController(ILogger<TemperatureController> logger, IOpenM
             return TypedResults.ValidationProblem(validationResult.ToDictionary());
         
         var result = await openMeteoService.GetCurrentTemperature(request);
+        
         //TODO: Map DTO and HTTP status codes
 
        return TypedResults.Ok(result);

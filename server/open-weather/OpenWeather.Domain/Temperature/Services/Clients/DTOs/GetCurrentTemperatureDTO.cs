@@ -1,6 +1,6 @@
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
-namespace OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.DTOs;
+namespace OpenWeather.Domain.Temperature.Services.Clients.DTOs;
 
 // ReSharper disable once InconsistentNaming
 internal class GetCurrentTemperatureDTO

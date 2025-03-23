@@ -1,6 +1,6 @@
 using System.Net.Http.Json;
-using OpenWeather.Azure.Function.LoadOpenMeteoData.Temperature.DTOs;
 using OpenWeather.Domain.Temperature.Models;
+using OpenWeather.Domain.Temperature.Services.Clients.DTOs;
 
 namespace OpenWeather.Domain.Temperature.Services.Clients;
 

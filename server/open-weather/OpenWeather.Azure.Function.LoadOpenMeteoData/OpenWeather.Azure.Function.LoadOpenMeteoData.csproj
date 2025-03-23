@@ -46,4 +46,7 @@
     <ItemGroup>
       <Folder Include="Config\" />
     </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\OpenWeather.Adapters.Postgres\OpenWeather.Adapters.Postgres.csproj" />
+    </ItemGroup>
 </Project>
